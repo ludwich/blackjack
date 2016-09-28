@@ -38,7 +38,7 @@ namespace BlackJackProject
             {
                 Console.Write("How many players (max 3): ");            //MÅSTE LÄGGA IN KOLL PÅ ANTALET SPELARE (NY METOD)
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out nrOfPlayers))
+                if (int.TryParse(input, out nrOfPlayers) && nrOfPlayers <4)
                 {
                     for (int i = 1; i <= nrOfPlayers; i++)
                     {
