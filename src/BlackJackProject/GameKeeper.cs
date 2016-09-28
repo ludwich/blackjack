@@ -78,6 +78,7 @@ namespace BlackJackProject
                 while (tb.CheckHandValue(tableOfPlayers[0].myCards)< 16)
                 {
                     Cards.DrawACard(tableOfPlayers[0], tableDeck);
+                    scrm.RefreshTable();
                 }
 
                 int winner = tb.CheckWinner((Dealer)tableOfPlayers[0], tableOfPlayers[1]);
