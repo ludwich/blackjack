@@ -60,7 +60,7 @@ namespace BlackJackProject
         }
 
         //Kontrollera vilken spelare som har bästa hand
-        public int CheckWinner(Player p1, Player p2)
+        public int CheckWinner(Dealer p1, Player p2)
         {
             if (CheckHandValue(p1.myCards) < CheckHandValue(p2.myCards) && CheckHandValue(p2.myCards)<=21)           //Spelare 2 har bättre hand
             {

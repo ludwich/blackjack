@@ -74,8 +74,15 @@ namespace BlackJackProject
                     }
 
                 }
+                while (tb.CheckHandValue(tableOfPlayers[0].myCards)< 16)
+                {
+                    Cards.DrawACard(tableOfPlayers[0], tableDeck);
+                }
 
-
+                int winner = tb.CheckWinner((Dealer)tableOfPlayers[0], tableOfPlayers[1]);
+                Console.WriteLine(winner);
+                Console.ReadKey();
+                break;
 
                 
             }
@@ -89,6 +96,7 @@ namespace BlackJackProject
 
             while (isRunning)
             {
+                scrm.RefreshTable();
                 Console.SetCursorPosition(0, 3);
                 Console.WriteLine($"Your handvalue is {tb.CheckHandValue(p1.myCards)} Do you want to draw a card? (Y/N)");
                 playerChoice = Console.ReadLine().ToLower();
