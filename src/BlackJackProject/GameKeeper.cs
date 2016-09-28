@@ -98,7 +98,7 @@ namespace BlackJackProject
             while (isRunning)
             {
                 scrm.RefreshTable();
-                Console.SetCursorPosition(0, 3);
+                Console.SetCursorPosition(0, 25);
                 Console.WriteLine($"Your handvalue is {tb.CheckHandValue(p1.myCards)} Do you want to draw a card? (Y/N)");
                 playerChoice = Console.ReadLine().ToLower();
 

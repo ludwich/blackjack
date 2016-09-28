@@ -24,7 +24,11 @@ namespace BlackJackProject
         {
             foreach (var p in players)
             {
-                PrintPlayer(p.myCards.ToArray());
+                if (p != null)
+                {
+                    PrintPlayer(p.myCards.ToArray());
+                }
+               
             }
         }
 
