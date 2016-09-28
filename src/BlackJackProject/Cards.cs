@@ -13,7 +13,7 @@ namespace BlackJackProject
         {
             Suits = (Suits)color;
             Face = (Face)value;
-            Value = value;
+            //Value = value;
 
         }
 
