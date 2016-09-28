@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace BlackJackProject
-{
+{//-lksdnkjöadfkjgbadfvbjado
     public class GameKeeper
     {
         //Bordets variabler
