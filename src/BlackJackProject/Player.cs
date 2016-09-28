@@ -43,7 +43,7 @@ namespace BlackJackProject
         public string Name { get; set; }
         public Double Cash { get; set; }
         public Stack<Cards> myCards = new Stack<Cards>();
-        // public bool amIFat = false;
+        public bool isIFat = false;
     }
 
 

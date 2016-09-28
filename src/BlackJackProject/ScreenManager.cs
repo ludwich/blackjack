@@ -22,6 +22,7 @@ namespace BlackJackProject
 
         public void RefreshTable()
         {
+            Console.Clear();
             foreach (var p in players)
             {
                 if (p != null)
