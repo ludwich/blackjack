@@ -11,34 +11,38 @@ namespace BlackJackProject
         public TableManager()
         {
         }
-        
 
-        
+
+
         //Metoder
         //Kontrollera värdet på en hand
         public int CheckHandValue(Stack<Cards> hand)
         {
-            int hValue = 0, aceValue = 0;
+            int hValue = 0;
+            int aceValue = 0;
+
             bool iHaveAce = false;
+
             foreach (var card in hand)
             {
-                if (card.Face == Face.Ace)
+                if (card.Face.Equals(Face.Ace))
                 {
                     iHaveAce = true;
                     break;
                 }
             }
-            if (iHaveAce)                                   //Hantera ess som 1 eller 11?
+
+            if (iHaveAce)                                                   //Hantera ess som 1 eller 11?
             {
-                foreach (var item in hand)                                  
+                foreach (var item in hand)
                 {
                     aceValue += item.Value;
 
                 }
 
-                if((aceValue + 10) <= 21)                                   //Räkna esset som 11
+                if ((aceValue + 10) <= 21)                                   //Räkna esset som 11
                 {
-                    hValue = aceValue +10;
+                    hValue = aceValue + 10;
                 }
 
                 else
@@ -62,14 +66,30 @@ namespace BlackJackProject
         //Kontrollera vilken spelare som har bästa hand
         public int CheckWinner(Dealer p1, Player p2)
         {
-            if (CheckHandValue(p1.myCards) < CheckHandValue(p2.myCards) && CheckHandValue(p2.myCards)<=21)           //Spelare 2 har bättre hand
+            int h1 = CheckHandValue(p1.myCards);
+            int h2 = CheckHandValue(p2.myCards);
+
+            if (h1 < h2 && h2 <= 21)           //Spelare 2 har bättre hand
             {
+                Console.WriteLine(h1 + h2);
                 return 2;
             }
-            else if (CheckHandValue(p1.myCards) > CheckHandValue(p2.myCards) && CheckHandValue(p1.myCards) <= 21)    //Spelare 1 har bättre hand
-             { return 1; }
-            else                                                                                                     //Båda spelare har samma värde på sina händer
-            { return 3; }
+            else if (h1 > h2 && h1 <= 21)    //Spelare 1 har bättre hand
+            {
+                Console.WriteLine(h1 + h2);
+                return 1;
+            }
+            else if (h1==h2 && h1<=21 && h2 <=21)                                                                                                     //Båda spelare har samma värde på sina händer
+            {
+                Console.WriteLine(h1 + h2);
+                return 3;
+            }
+            else
+            {
+                Console.WriteLine(h1 + h2);
+                return -1;
+            }
+
         }
 
 
