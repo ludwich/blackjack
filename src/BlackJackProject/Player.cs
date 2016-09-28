@@ -28,9 +28,7 @@ namespace BlackJackProject
             {
                 Cash = 100000;
             }
-
-
-            Console.WriteLine($"{Name}\nAmount of money {Cash}$");
+            Console.Clear();
 
 
         }

@@ -52,14 +52,18 @@ namespace BlackJackProject
             while (true)
             {
                 //Dela ut 2 kort till varje spelare vid bordet, inkl. Dealern på första platsen
-                for (int i = 0; i < 2; i++)
+                if (tableOfPlayers[0].myCards.Count == 0)
                 {
-                    for (int k = 0; k < tableOfPlayers.Length; k++)
+                    for (int i = 0; i < 2; i++)
                     {
-                        if (tableOfPlayers[k] != null)
-                        { Cards.DrawACard(tableOfPlayers[k], tableDeck); }
+                        for (int k = 0; k < tableOfPlayers.Length; k++)
+                        {
+                            if (tableOfPlayers[k] != null)
+                            { Cards.DrawACard(tableOfPlayers[k], tableDeck); }
+                        }
                     }
                 }
+                
 
                 //Låt varje spelare satsa på sin hand
                 for (int k = 1; k < tableOfPlayers.Length; k++)
