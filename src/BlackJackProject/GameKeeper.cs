@@ -66,7 +66,7 @@ namespace BlackJackProject
                 //Kontrollera vinnare
                 for (int k = 1; k < tableOfPlayers.Length; k++)
                 {
-                    if (tableOfPlayers[k] != null)
+                    if (tableOfPlayers[k] != null )
                     {
                         int winner = tb.CheckWinner((Dealer)tableOfPlayers[0], tableOfPlayers[k]);
                         if (winner == 1)
@@ -245,6 +245,7 @@ namespace BlackJackProject
                     {
                         Console.WriteLine("You busted!");
                         isRunning = false;
+                        p1.isFat = true;
                     }
 
 

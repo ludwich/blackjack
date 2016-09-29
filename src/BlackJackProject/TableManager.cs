@@ -70,19 +70,23 @@ namespace BlackJackProject
             int h2 = CheckHandValue(p2.myCards);
 
             Console.WriteLine($"{h1}:{h2}");
-
-            if (h1 < h2 && h2 <= 21)           //Spelare 2 har bättre hand
+            if (p2.isFat)
+            {
+                p2.BettingCash = 0;
+                return 1;                   //Spelaren är tjock
+            }
+            else if (h1 < h2 && h2 <= 21)           //Spelare 2 har bättre hand
             {
                 p2.Cash += p2.BettingCash * 2;
                 p2.BettingCash = 0;
                 return 2;
             }
-            else if (h1 < h2 && h2 > 21)
+            else if (h1 < h2 && h2 > 21 && h1 <= 21)
             {
                 p2.BettingCash = 0;
                 return 1;                   //Spelaren är tjock, dealern winner
             }
-            else if (h2 < h1 && h1 > 21)
+            else if (h2 < h1 && h1 > 21 && h2 <= 21)
             {
                 p2.Cash += p2.BettingCash * 2;
                 p2.BettingCash = 0;
