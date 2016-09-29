@@ -15,17 +15,14 @@ namespace BlackJackProject
         //Konstruktor
         public GameKeeper()
         {
-
-
             tableOfPlayers = new Player[4] { new Dealer(), null, null, null };
             tb = new TableManager();
             tableDeck = Cards.GetAFreshDeck();
 
             scrm = new ScreenManager(tableOfPlayers);
-
         }
 
-        
+
 
 
 
@@ -38,33 +35,24 @@ namespace BlackJackProject
             {
                 Console.Write("How many players (max 3): ");            //MÅSTE LÄGGA IN KOLL PÅ ANTALET SPELARE (NY METOD)
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out nrOfPlayers) && nrOfPlayers <4)
+                if (int.TryParse(input, out nrOfPlayers) && nrOfPlayers < 4)
                 {
                     for (int i = 1; i <= nrOfPlayers; i++)
                     {
-                        tableOfPlayers[i] = new Player();
+
+                        tableOfPlayers[i] = new Player("");
                     }
                     break;
                 }
 
             }
 
+            bool runGame = true;
 
-            while (true)
+            while (runGame)
             {
-                //Dela ut 2 kort till varje spelare vid bordet, inkl. Dealern på första platsen
-                if (tableOfPlayers[0].myCards.Count == 0)
-                {
-                    for (int i = 0; i < 2; i++)
-                    {
-                        for (int k = 0; k < tableOfPlayers.Length; k++)
-                        {
-                            if (tableOfPlayers[k] != null)
-                            { Cards.DrawACard(tableOfPlayers[k], tableDeck); }
-                        }
-                    }
-                }
-                
+                ClearHands();
+                NewRound();
 
                 //Låt varje spelare satsa på sin hand
                 for (int k = 1; k < tableOfPlayers.Length; k++)
@@ -75,18 +63,84 @@ namespace BlackJackProject
                     }
 
                 }
-                while (tb.CheckHandValue(tableOfPlayers[0].myCards)< 16)
+
+                //Låt dealern dra sina kort
+                while (tb.CheckHandValue(tableOfPlayers[0].myCards) < 16)
                 {
                     Cards.DrawACard(tableOfPlayers[0], tableDeck);
                     scrm.RefreshTable();
                 }
 
-                int winner = tb.CheckWinner((Dealer)tableOfPlayers[0], tableOfPlayers[1]);
-                Console.WriteLine(winner);
-                Console.ReadKey();
-                break;
+                //Kontrollera vinnare
+                for (int k = 1; k < tableOfPlayers.Length; k++)
+                {
+                    if (tableOfPlayers[k] != null)
+                    {
+                        int winner = tb.CheckWinner((Dealer)tableOfPlayers[0], tableOfPlayers[k]);
+                        if (winner == 1)
+                        {
+                            Console.WriteLine("Dealer wins");
+                        }
+                        else if (winner == 2)
+                        {
+                            Console.WriteLine($"{tableOfPlayers[k].Name} wins!");
+                        }
+                        else if (winner == 3)
+                        {
+                            Console.WriteLine("PUSH!");
 
-                
+                        }
+                        else
+                        {
+                            Console.WriteLine("Something went wrong....");
+
+                        }
+                    }
+
+                }
+                Console.ReadKey();
+
+                Console.Write("Do you want to play a new round of Black Jack?");
+                string input = Console.ReadLine().ToLower();
+                if (input == "n")
+                {
+                    runGame = false;
+                }
+
+
+            }
+        }
+
+        //Töm alla spelares gamla händer
+        private void ClearHands()
+        {
+            for (int i = 0; i < tableOfPlayers.Length; i++)
+            {
+                if (tableOfPlayers[i] != null)
+                {
+                    tableOfPlayers[i].myCards.Clear();
+                }
+            }
+        }
+
+
+        //Dela ut 2 kort till varje spelare vid bordet, inkl. Dealern på första platsen
+        public void NewRound()
+        {
+
+            if (tableOfPlayers[0].myCards.Count == 0)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    for (int k = 0; k < tableOfPlayers.Length; k++)
+                    {
+                        if (tableOfPlayers[k] != null)
+                        {
+                            Cards.DrawACard(tableOfPlayers[k], tableDeck);
+                            scrm.RefreshTable();
+                        }
+                    }
+                }
             }
         }
 

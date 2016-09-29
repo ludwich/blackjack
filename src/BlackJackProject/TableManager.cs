@@ -68,6 +68,7 @@ namespace BlackJackProject
         {
             int h1 = CheckHandValue(p1.myCards);
             int h2 = CheckHandValue(p2.myCards);
+
             Console.WriteLine($"{h1}:{h2}");
 
             if (h1 < h2 && h2 <= 21)           //Spelare 2 har bättre hand
@@ -75,7 +76,15 @@ namespace BlackJackProject
                 
                 return 2;
             }
-            else if (h1 > h2 && h1 <= 21)    //Spelare 1 har bättre hand
+            else if (h1 < h2 && h2 > 21)
+            {
+                return 1;                   //Spelaren är tjock, dealern winner
+            }
+            else if (h2 < h1 && h1 > 21)
+            {
+                return 2;                   //Dealern tjock, spelaren vinner
+            }
+            else if (h1 > h2 && h1 <= 21)    //Dealern har bättre hand
             {
                
                 return 1;
