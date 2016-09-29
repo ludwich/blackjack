@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace BlackJackProject
 {
@@ -66,7 +66,7 @@ namespace BlackJackProject
                 //Kontrollera vinnare
                 for (int k = 1; k < tableOfPlayers.Length; k++)
                 {
-                    if (tableOfPlayers[k] != null )
+                    if (tableOfPlayers[k] != null)
                     {
                         int winner = tb.CheckWinner((Dealer)tableOfPlayers[0], tableOfPlayers[k]);
                         if (winner == 1)
@@ -115,14 +115,23 @@ namespace BlackJackProject
             }
         }
 
-        //Kolla hur många lediga platser som finns kvar på bordet
+        //Kolla hur många lediga platser som finns kvar på bordet, plocka bort de som inte har pengar kvar
         private int RemainingSeats()
         {
             int remaining = 0;
 
             for (int i = 1; i < tableOfPlayers.Length; i++)
             {
-                if (tableOfPlayers[i] == null)
+                if (tableOfPlayers[i] != null && tableOfPlayers[i].Cash == 0)
+                {
+                    Console.WriteLine($"{tableOfPlayers[i].Name} you are broke and will be removed from the table!");
+                    Console.ReadKey();
+
+                    RemovePlayer(tableOfPlayers[i]);
+                    remaining += 1;
+                }
+
+                else if (tableOfPlayers[i] == null)
                 {
                     remaining += 1;
                 }
@@ -137,7 +146,7 @@ namespace BlackJackProject
 
             while (true)
             {
-                Console.Write($"How many players (max {RemainingSeats()}): ");
+                Console.Write($"How many new players (max {RemainingSeats()}): ");
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out nrOfPlayers) && (nrOfPlayers <= RemainingSeats()) && (nrOfPlayers >= 0))
                 {
@@ -147,7 +156,7 @@ namespace BlackJackProject
                     }
                     break;
                 }
-               
+
 
             }
         }
@@ -166,7 +175,8 @@ namespace BlackJackProject
                 if (tableOfPlayers[i] != null)
                 {
                     tableOfPlayers[i].myCards.Clear();
-                    //scrm.RefreshTable();
+                    tableOfPlayers[i].isFat = false;
+                    scrm.RefreshTable();
                 }
             }
         }
@@ -178,13 +188,14 @@ namespace BlackJackProject
             {
                 if (tableOfPlayers[i] != null)
                 {
+                    
                     bool isBetting = true;
                     while (isBetting)
                     {
                         Console.Write($"{tableOfPlayers[i].Name} have {tableOfPlayers[i].Cash}, how much do you want to bet? : ");
                         string input = Console.ReadLine();
                         int x;
-                        if (int.TryParse(input, out x) && x <= tableOfPlayers[i].Cash && x >0)
+                        if (int.TryParse(input, out x) && x <= tableOfPlayers[i].Cash && x > 0)
                         {
                             tableOfPlayers[i].BettingCash = x;
                             tableOfPlayers[i].Cash -= x;
@@ -235,31 +246,39 @@ namespace BlackJackProject
             {
                 scrm.RefreshTable();
                 Console.SetCursorPosition(0, 25);
-                Console.WriteLine($"Your handvalue is {tb.CheckHandValue(p1.myCards)} Do you want to draw a card? (Y/N)");
-                playerChoice = Console.ReadLine().ToLower();
-
-                if (playerChoice == "y")
+                if (tb.IsBlackJack(p1.myCards))
                 {
-                    Cards.DrawACard(p1, tableDeck);
-                    if (tb.Isfat(p1.myCards))
-                    {
-                        Console.WriteLine("You busted!");
-                        isRunning = false;
-                        p1.isFat = true;
-                    }
-
-
-                }
-                else if (playerChoice == "n")
-                {
+                    Console.WriteLine($"Congrats {p1.Name} you have BLACKJACK!");
+                    Thread.Sleep(3000);
                     isRunning = false;
                 }
                 else
                 {
-                    Console.WriteLine($"{playerChoice} is not a valid input!");
+                    Console.WriteLine($"{p1.Name} your handvalue is {tb.CheckHandValue(p1.myCards)} Do you want to draw a card? (Y/N)");
+                    playerChoice = Console.ReadLine().ToLower();
+
+                    if (playerChoice == "y")
+                    {
+                        Cards.DrawACard(p1, tableDeck);
+                        if (tb.Isfat(p1.myCards))
+                        {
+                            Console.WriteLine("You busted!");
+                            isRunning = false;
+                            p1.isFat = true;
+                        }
+
+
+                    }
+                    else if (playerChoice == "n")
+                    {
+                        isRunning = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{playerChoice} is not a valid input!");
+                    }
                 }
             }
-
         }
 
 

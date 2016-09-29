@@ -73,9 +73,15 @@ namespace BlackJackProject
             if (p2.isFat)
             {
                 p2.BettingCash = 0;
-                return 1;                   //Spelaren är tjock
+                return 1;                               //Spelaren är tjock
             }
-            else if (h1 < h2 && h2 <= 21)           //Spelare 2 har bättre hand
+            else if (IsBlackJack(p2.myCards))           //Spelaren vinner på Blackjack 1,5 ggr pengarna
+            {
+                p2.Cash += p2.BettingCash * 2.5;
+                p2.BettingCash = 0;
+                return 2;
+            }
+            else if (h1 < h2 && h2 <= 21)               //Spelare 2 har bättre hand
             {
                 p2.Cash += p2.BettingCash * 2;
                 p2.BettingCash = 0;
