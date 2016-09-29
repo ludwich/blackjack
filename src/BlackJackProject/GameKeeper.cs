@@ -29,12 +29,17 @@ namespace BlackJackProject
         //Loop för själva spelandet
         public void GameRunning()
         {
-            AddPlayer();
+
 
             bool isRunning = true;
 
             while (isRunning)
             {
+                if (RemainingSeats() > 0)
+                {
+                    AddPlayer();
+                }
+
                 ClearHands();
 
                 //Placera anropet av bettingen här PlaceYourBets();
@@ -138,8 +143,7 @@ namespace BlackJackProject
                 {
                     for (int i = 1; i <= nrOfPlayers; i++)
                     {
-
-                        tableOfPlayers[i] = new Player("");
+                        tableOfPlayers[Array.IndexOf(tableOfPlayers, null)] = new Player("");
                     }
                     break;
                 }
@@ -149,7 +153,7 @@ namespace BlackJackProject
 
         //Ta bort spelare från bordet
         private void RemovePlayer(Player p)
-        {   
+        {
             tableOfPlayers[Array.IndexOf(tableOfPlayers, p)] = null;
         }
 
@@ -239,17 +243,7 @@ namespace BlackJackProject
         }
 
 
-        //Ta bort en spelare från bordet
-        public void RemovePlayer(Player p1)
-        {
-            for (int i = 0; i < tableOfPlayers.Length; i++)
-            {
-                if (tableOfPlayers[i] == p1)
-                {
-                    tableOfPlayers[i] = null;                               //Tar bort Spelare p1 från tableOfPlayers
-                }
-            }
-        }
+
 
         //Kontrollera om det finns plats på bordet
         public bool IsTableFull()
