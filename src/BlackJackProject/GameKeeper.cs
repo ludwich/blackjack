@@ -19,7 +19,7 @@ namespace BlackJackProject
             tableOfPlayers = new Player[4] { new Dealer(), null, null, null };
             tb = new TableManager();
             tableDeck = Cards.GetAFreshDeck();
-
+            hs = new HighScoreManager();
             scrm = new ScreenManager(tableOfPlayers);
         }
 
