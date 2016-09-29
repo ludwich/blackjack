@@ -68,11 +68,7 @@ namespace BlackJackProject
             var sortedList = TheScores.OrderByDescending(x => x.Cash)
                             .Take(10)
                             .ToList();
-            foreach (var item in sortedList)
-            {
-                Console.WriteLine($"{item.Name} {item.Cash} ");
-            }
-
+        
             try
             {
                 using (StreamWriter r = new StreamWriter(new FileStream(@"c:\temp\highscore.txt", FileMode.Open)))

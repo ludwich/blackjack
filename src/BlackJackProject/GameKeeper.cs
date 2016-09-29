@@ -202,7 +202,7 @@ namespace BlackJackProject
                         Console.Write($"{tableOfPlayers[i].Name} have {tableOfPlayers[i].Cash}, how much do you want to bet? : ");
                         string input = Console.ReadLine();
                         int x;
-                        if (int.TryParse(input, out x) && x <= tableOfPlayers[i].Cash && x > 0)
+                        if (int.TryParse(input, out x) && x <= tableOfPlayers[i].Cash && x >= 0)
                         {
                             tableOfPlayers[i].BettingCash = x;
                             tableOfPlayers[i].Cash -= x;
@@ -253,7 +253,7 @@ namespace BlackJackProject
             bool isRunning = true;
             p1.isActivePlayer = true;
 
-            while (isRunning)
+            while (isRunning&&p1.myCards.Count() > 0)
             {
 
                 scrm.RefreshTable();
@@ -312,25 +312,25 @@ namespace BlackJackProject
         }
 
 
+        //Tar bort just nu då den inte används
 
-
-        //Kontrollera om det finns plats på bordet
-        public bool IsTableFull()
-        {
-            bool fullTable = true;
-
-            for (int i = 0; i < tableOfPlayers.Length; i++)
-            {
-                if (tableOfPlayers[i] == null)
-                {
-                    fullTable = false;                                                //Det finns minst en ledig plats vid bordet
-                }
-            }
-            return fullTable;
-        }
-
-
-
+//  //Kontrollera om det finns plats på bordet
+//  public bool IsTableFull()
+//  {
+//      bool fullTable = true;
+//
+//      for (int i = 0; i < tableOfPlayers.Length; i++)
+//      {
+//          if (tableOfPlayers[i] == null)
+//          {
+//              fullTable = false;                                                //Det finns minst en ledig plats vid bordet
+//          }
+//      }
+//      return fullTable;
+//  }
+//
+//
+//
 
 
 
