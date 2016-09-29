@@ -7,7 +7,7 @@ namespace BlackJackProject
 {
     public class HighScore
     {
-        public HighScore(string name, int cash)
+        public HighScore(string name, double cash)
         {
             Name = name;
             Cash = cash;
@@ -15,7 +15,7 @@ namespace BlackJackProject
 
         }
         public string Name { get; set; }
-        public int Cash { get; set; }
+        public double Cash { get; set; }
 
     }
 }

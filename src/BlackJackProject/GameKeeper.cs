@@ -12,6 +12,7 @@ namespace BlackJackProject
         Stack<Cards> tableDeck;
         ScreenManager scrm;
         TableManager tb;
+        HighScoreManager hs;
         //Konstruktor
         public GameKeeper()
         {
@@ -102,6 +103,7 @@ namespace BlackJackProject
                     if (input == "n")
                     {
                         isRunning = false;
+                        hs.HighScoreWorthyCheck(tableOfPlayers);
                         break;
                     }
                     else if (input == "y")
