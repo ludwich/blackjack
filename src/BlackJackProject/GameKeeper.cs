@@ -299,35 +299,7 @@ namespace BlackJackProject
 
 
 
-        //Sätt en ny spelare vid bordet
-        public void SeatPlayer(Player p1)
-        {
-            for (int i = 0; i < tableOfPlayers.Length; i++)
-            {
-                if (tableOfPlayers[i] == null)                               //Sätter spelare p1 på första lediga plats på bordet
-                {
-                    tableOfPlayers[i] = p1;
-                }
-            }
-        }
-
-
-        //Tar bort just nu då den inte används
-
-//  //Kontrollera om det finns plats på bordet
-//  public bool IsTableFull()
-//  {
-//      bool fullTable = true;
-//
-//      for (int i = 0; i < tableOfPlayers.Length; i++)
-//      {
-//          if (tableOfPlayers[i] == null)
-//          {
-//              fullTable = false;                                                //Det finns minst en ledig plats vid bordet
-//          }
-//      }
-//      return fullTable;
-//  }
+ 
 //
 //
 //
