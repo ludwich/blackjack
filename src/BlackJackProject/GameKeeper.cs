@@ -59,8 +59,10 @@ namespace BlackJackProject
                 //Låt dealern dra sina kort
                 while (tb.CheckHandValue(tableOfPlayers[0].myCards) < 17)
                 {
+                    tableOfPlayers[0].isActivePlayer = true;
                     Cards.DrawACard(tableOfPlayers[0], tableDeck);
                     scrm.RefreshTable();
+                    tableOfPlayers[0].isActivePlayer = false;
                 }
 
                 //Kontrollera vinnare
@@ -165,6 +167,7 @@ namespace BlackJackProject
         private void RemovePlayer(Player p)
         {
             tableOfPlayers[Array.IndexOf(tableOfPlayers, p)] = null;
+            scrm.RefreshTable();
         }
 
         //Töm alla spelares gamla händer
@@ -176,11 +179,13 @@ namespace BlackJackProject
                 {
                     tableOfPlayers[i].myCards.Clear();
                     tableOfPlayers[i].isFat = false;
-                    scrm.RefreshTable();
+
                 }
             }
+            scrm.RefreshTable();
         }
 
+        //Satsa dina surt förvärvade pengar din speltorsk!
         private void PlaceYourBet()
         {
 
@@ -188,7 +193,7 @@ namespace BlackJackProject
             {
                 if (tableOfPlayers[i] != null)
                 {
-                    
+
                     bool isBetting = true;
                     while (isBetting)
                     {
@@ -224,9 +229,12 @@ namespace BlackJackProject
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    for (int k = 0; k < tableOfPlayers.Length; k++)
+                    Cards.DrawACard(tableOfPlayers[0], tableDeck);          //Ge kort till dealern
+                    scrm.RefreshTable();
+
+                    for (int k = 1; k < tableOfPlayers.Length; k++)
                     {
-                        if (tableOfPlayers[k] != null)
+                        if (tableOfPlayers[k] != null && tableOfPlayers[k].BettingCash > 0)
                         {
                             Cards.DrawACard(tableOfPlayers[k], tableDeck);
                             scrm.RefreshTable();
@@ -241,15 +249,17 @@ namespace BlackJackProject
         {
             string playerChoice = "";
             bool isRunning = true;
+            p1.isActivePlayer = true;
 
             while (isRunning)
             {
+
                 scrm.RefreshTable();
                 Console.SetCursorPosition(0, 25);
                 if (tb.IsBlackJack(p1.myCards))
                 {
                     Console.WriteLine($"Congrats {p1.Name} you have BLACKJACK!");
-                    Thread.Sleep(3000);
+                    Thread.Sleep(2000);
                     isRunning = false;
                 }
                 else
@@ -263,6 +273,7 @@ namespace BlackJackProject
                         if (tb.Isfat(p1.myCards))
                         {
                             Console.WriteLine("You busted!");
+                            Thread.Sleep(2000);
                             isRunning = false;
                             p1.isFat = true;
                         }
@@ -279,6 +290,8 @@ namespace BlackJackProject
                     }
                 }
             }
+
+            p1.isActivePlayer = false;
         }
 
 
