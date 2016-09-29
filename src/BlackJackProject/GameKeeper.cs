@@ -42,7 +42,7 @@ namespace BlackJackProject
 
                 ClearHands();
 
-                //Placera anropet av bettingen här PlaceYourBets();
+                PlaceYourBet();
 
                 NewRound();
 
@@ -139,7 +139,7 @@ namespace BlackJackProject
             {
                 Console.Write($"How many players (max {RemainingSeats()}): ");
                 string input = Console.ReadLine();
-                if (int.TryParse(input, out nrOfPlayers) && (nrOfPlayers <= RemainingSeats()) && (nrOfPlayers > 0))
+                if (int.TryParse(input, out nrOfPlayers) && (nrOfPlayers <= RemainingSeats()) && (nrOfPlayers >= 0))
                 {
                     for (int i = 1; i <= nrOfPlayers; i++)
                     {
@@ -147,6 +147,7 @@ namespace BlackJackProject
                     }
                     break;
                 }
+               
 
             }
         }
@@ -168,6 +169,39 @@ namespace BlackJackProject
                     //scrm.RefreshTable();
                 }
             }
+        }
+
+        private void PlaceYourBet()
+        {
+
+            for (int i = 1; i < tableOfPlayers.Count(); i++)
+            {
+                if (tableOfPlayers[i] != null)
+                {
+                    bool isBetting = true;
+                    while (isBetting)
+                    {
+                        Console.Write($"{tableOfPlayers[i].Name} have {tableOfPlayers[i].Cash}, how much do you want to bet? : ");
+                        string input = Console.ReadLine();
+                        int x;
+                        if (int.TryParse(input, out x) && x <= tableOfPlayers[i].Cash && x >0)
+                        {
+                            tableOfPlayers[i].BettingCash = x;
+                            tableOfPlayers[i].Cash -= x;
+                            isBetting = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{input} is not a valid option");
+                        }
+
+
+                    }
+
+                }
+
+            }
+
         }
 
 

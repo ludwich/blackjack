@@ -41,9 +41,11 @@ namespace BlackJackProject
 
 
         public string Name { get; set; }
-        public Double Cash { get; set; }
+        public double Cash { get; set; }
         public Stack<Cards> myCards = new Stack<Cards>();
         public bool isIFat = false;
+        public double BettingCash { get; set; }
+
     }
 
 

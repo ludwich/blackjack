@@ -73,25 +73,29 @@ namespace BlackJackProject
 
             if (h1 < h2 && h2 <= 21)           //Spelare 2 har bättre hand
             {
-                
+                p2.Cash += p2.BettingCash * 2;
+                p2.BettingCash = 0;
                 return 2;
             }
             else if (h1 < h2 && h2 > 21)
             {
+                p2.BettingCash = 0;
                 return 1;                   //Spelaren är tjock, dealern winner
             }
             else if (h2 < h1 && h1 > 21)
             {
+                p2.Cash += p2.BettingCash * 2;
+                p2.BettingCash = 0;
                 return 2;                   //Dealern tjock, spelaren vinner
             }
             else if (h1 > h2 && h1 <= 21)    //Dealern har bättre hand
             {
-               
+                p2.BettingCash = 0;
                 return 1;
             }
             else if (h1==h2 && h1<=21 && h2 <=21)                                                                                                     //Båda spelare har samma värde på sina händer
             {
-              
+                p2.BettingCash = 0;
                 return 3;
             }
             else
