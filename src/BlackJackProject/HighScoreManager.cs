@@ -149,13 +149,13 @@ namespace BlackJackProject
             client.BaseAddress = uri;
 
             var httpmessage = client.PutAsync(uri, new StringContent(json.ToString(), Encoding.UTF8, "application/json"));
-            Thread.Sleep(5000);
+            httpmessage.Wait();
         }
 
         /// <summary>
         /// Will download the highscore from MyJson and then desrialize to a List<HighScores>.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>returns a List<HighScores></returns>
         public async Task<List<HighScore>> GetTheScoresFromMyJson()
         {
             List<HighScore> highScores = new List<HighScore>();
