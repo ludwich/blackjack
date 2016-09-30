@@ -1,14 +1,17 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0",
-    "signature": "09db60146a5b8a0d40c5ea0fb7485ab3bbdd4a1a"
+    "signature": "278012019ace5331730323cbe7d80a6c6279f846"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v1.0": {
       "BlackJackProject/1.0.0": {
         "dependencies": {
-          "Newtonsoft.Json": "9.0.1"
+          "Newtonsoft.Json": "9.0.1",
+          "system.net.networkinformation": "4.0.10-beta-23123",
+          "system.net.utilities": "4.0.0-beta-23123",
+          "System.Private.Networking": "4.0.0"
         },
         "runtime": {
           "BlackJackProject.dll": {}
@@ -20,6 +23,41 @@
         },
         "runtime": {
           "lib/netstandard1.0/Newtonsoft.Json.dll": {}
+        }
+      },
+      "System.Collections.NonGeneric/4.0.0": {
+        "runtime": {
+          "lib/dotnet/System.Collections.NonGeneric.dll": {}
+        }
+      },
+      "System.ComponentModel.EventBasedAsync/4.0.10": {
+        "runtime": {
+          "lib/dotnet/System.ComponentModel.EventBasedAsync.dll": {}
+        }
+      },
+      "system.net.networkinformation/4.0.10-beta-23123": {
+        "dependencies": {
+          "System.Private.Networking": "4.0.0"
+        },
+        "runtime": {
+          "lib/DNXCore50/System.Net.NetworkInformation.dll": {}
+        }
+      },
+      "system.net.utilities/4.0.0-beta-23123": {
+        "dependencies": {
+          "System.Private.Networking": "4.0.0"
+        },
+        "runtime": {
+          "lib/DNXCore50/System.Net.Utilities.dll": {}
+        }
+      },
+      "System.Private.Networking/4.0.0": {
+        "dependencies": {
+          "System.Collections.NonGeneric": "4.0.0",
+          "System.ComponentModel.EventBasedAsync": "4.0.10"
+        },
+        "runtime": {
+          "lib/DNXCore50/System.Private.Networking.dll": {}
         }
       },
       "System.Runtime.Serialization.Primitives/4.1.1": {
@@ -39,6 +77,31 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-U82mHQSKaIk+lpSVCbWYKNavmNH1i5xrExDEquU1i6I5pV6UMOqRnJRSlKO3cMPfcpp0RgDY+8jUXHdQ4IfXvw=="
+    },
+    "System.Collections.NonGeneric/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rVgwrFBMkmp8LI6GhAYd6Bx+2uLIXjRfNg6Ie+ASfX8ESuh9e2HNxFy2yh1MPIXZq3OAYa+0mmULVwpnEC6UDA=="
+    },
+    "System.ComponentModel.EventBasedAsync/4.0.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-d6kXcHUgP0jSPXEQ6hXJYCO6CzfoCi7t9vR3BfjSQLrj4HzpuATpx1gkN7itmTW1O+wjuw6rai4378Nj6N70yw=="
+    },
+    "system.net.networkinformation/4.0.10-beta-23123": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NkKpsUm2MLoxT+YlSwexidAw2jGFIJuc6i4H9pT3nU3TQj7MZVursD/ohWj3nyBxthy7i00XLWkRZAwGao/zsg=="
+    },
+    "system.net.utilities/4.0.0-beta-23123": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-cxHMxZKu1x+JZNuL9/OFyJuSOfs0O1bGwdwgnGvOLczUO34fOEGidCSJXwXiusgR5Omom/cCsIR5nvcVEEM4Yg=="
+    },
+    "System.Private.Networking/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RUEqdBdJjISC65dO8l4LdN7vTdlXH+attUpKnauDUHVtLbIKdlDB9LKoLzCQsTQRP7vzUJHWYXznHJBkjAA7yA=="
     },
     "System.Runtime.Serialization.Primitives/4.1.1": {
       "type": "package",

@@ -21,6 +21,9 @@ namespace BlackJackProject
             tableDeck = Cards.GetAFreshDeck();
             hs = new HighScoreManager();
             scrm = new ScreenManager(tableOfPlayers);
+            hs.Online = HighScoreManager.IsNetworkAvailable();
+            
+            
         }
 
 
@@ -40,7 +43,7 @@ namespace BlackJackProject
                 {
                     AddPlayer();
                 }
-
+                
                 ClearHands();
 
                 PlaceYourBet();

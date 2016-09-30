@@ -22,8 +22,10 @@
 --reference:C:\Users\ludwi\.nuget\packages\System.Collections\4.0.11\ref\netstandard1.3\System.Collections.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Collections.Concurrent\4.0.12\ref\netstandard1.3\System.Collections.Concurrent.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Collections.Immutable\1.2.0\lib\netstandard1.0\System.Collections.Immutable.dll
+--reference:C:\Users\ludwi\.nuget\packages\System.Collections.NonGeneric\4.0.0\ref\dotnet\System.Collections.NonGeneric.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.ComponentModel\4.0.1\ref\netstandard1.0\System.ComponentModel.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.ComponentModel.Annotations\4.1.0\ref\netstandard1.4\System.ComponentModel.Annotations.dll
+--reference:C:\Users\ludwi\.nuget\packages\System.ComponentModel.EventBasedAsync\4.0.10\ref\dotnet\System.ComponentModel.EventBasedAsync.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Console\4.0.0\ref\netstandard1.3\System.Console.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Diagnostics.Debug\4.0.11\ref\netstandard1.3\System.Diagnostics.Debug.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Diagnostics.DiagnosticSource\4.0.0\lib\netstandard1.3\System.Diagnostics.DiagnosticSource.dll
@@ -48,10 +50,12 @@
 --reference:C:\Users\ludwi\.nuget\packages\System.Linq.Queryable\4.0.1\ref\netstandard1.0\System.Linq.Queryable.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Net.Http\4.1.0\ref\netstandard1.3\System.Net.Http.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Net.NameResolution\4.0.0\ref\netstandard1.3\System.Net.NameResolution.dll
+--reference:C:\Users\ludwi\.nuget\packages\system.net.networkinformation\4.0.10-beta-23123\ref\dotnet\System.Net.NetworkInformation.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Net.Primitives\4.0.11\ref\netstandard1.3\System.Net.Primitives.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Net.Requests\4.0.11\ref\netstandard1.3\System.Net.Requests.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Net.Security\4.0.0\ref\netstandard1.3\System.Net.Security.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Net.Sockets\4.1.0\ref\netstandard1.3\System.Net.Sockets.dll
+--reference:C:\Users\ludwi\.nuget\packages\system.net.utilities\4.0.0-beta-23123\ref\dotnet\System.Net.Utilities.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Net.WebHeaderCollection\4.0.1\ref\netstandard1.3\System.Net.WebHeaderCollection.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Numerics.Vectors\4.1.1\ref\netstandard1.0\System.Numerics.Vectors.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.ObjectModel\4.0.12\ref\netstandard1.3\System.ObjectModel.dll
@@ -79,6 +83,7 @@
 --reference:C:\Users\ludwi\.nuget\packages\System.Text.Encoding.Extensions\4.0.11\ref\netstandard1.3\System.Text.Encoding.Extensions.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Text.RegularExpressions\4.1.0\ref\netstandard1.6\System.Text.RegularExpressions.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Threading\4.0.11\ref\netstandard1.3\System.Threading.dll
+--reference:C:\Users\ludwi\.nuget\packages\System.Threading.Overlapped\4.0.1\ref\netstandard1.3\System.Threading.Overlapped.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Threading.Tasks\4.0.11\ref\netstandard1.3\System.Threading.Tasks.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Threading.Tasks.Dataflow\4.6.0\lib\netstandard1.1\System.Threading.Tasks.Dataflow.dll
 --reference:C:\Users\ludwi\.nuget\packages\System.Threading.Tasks.Extensions\4.0.0\lib\netstandard1.0\System.Threading.Tasks.Extensions.dll

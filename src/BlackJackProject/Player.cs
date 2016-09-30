@@ -15,7 +15,7 @@ namespace BlackJackProject
         }
         public Player(string s)
         {
-
+            Console.Clear();
             Cash = 100;
 
 
@@ -36,9 +36,7 @@ namespace BlackJackProject
             }
             Console.Clear();
 
-
         }
-
 
         public string Name { get; set; }
         public double Cash { get; set; }
