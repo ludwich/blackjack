@@ -29,6 +29,11 @@ namespace BlackJackProject
             List<HighScore> highScores = new List<HighScore>(10);
             try
             {
+                string dirPath = @"c:\temp\";
+                if (!Directory.Exists(dirPath))
+                {
+                    Directory.CreateDirectory(dirPath);
+                }
                 using (StreamReader r = new StreamReader(new FileStream(filePath, FileMode.Open)))
                 {
 
@@ -41,6 +46,12 @@ namespace BlackJackProject
             {
                 try
                 {
+                    string dirPath = @"c:\temp\";
+                    if (!Directory.Exists(dirPath))
+                    {
+                        Directory.CreateDirectory(dirPath);
+                    }
+
                     using (StreamWriter r = new StreamWriter(new FileStream(filePath, FileMode.Create)))
                     {
                         for (int i = 0; i < 10; i++)

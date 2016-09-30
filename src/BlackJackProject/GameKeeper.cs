@@ -247,7 +247,7 @@ namespace BlackJackProject
                     tableOfPlayers[i].myCardsSplit.Clear();
                     tableOfPlayers[i].isActivePlayerSplit = false;
                     tableOfPlayers[i].isFat = false;
-
+                    tableOfPlayers[i].Text = "";
                 }
             }
             scrm.RefreshTable();
@@ -339,6 +339,7 @@ namespace BlackJackProject
                 if (tb.IsBlackJack(activeDeck))
                 {
                     Console.WriteLine($"Congrats {p1.Name} you have BLACKJACK!");
+                    p1.Text = "BLACKJACK!";
                     Thread.Sleep(2000);
                     isRunning = false;
                 }
@@ -355,6 +356,7 @@ namespace BlackJackProject
                         {
                             scrm.RefreshTable();
                             Console.WriteLine("You busted!");
+                            p1.Text = "Busted";
                             Thread.Sleep(2000);
                             isRunning = false;
                             p1.isFat = true;
