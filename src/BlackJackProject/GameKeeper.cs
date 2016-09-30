@@ -131,6 +131,7 @@ namespace BlackJackProject
                     if (input == "n")
                     {
                         isRunning = false;
+                        hs.Online =  HighScoreManager.IsNetworkAvailable();
                         hs.HighScoreWorthyCheck(tableOfPlayers);
                         break;
                     }
