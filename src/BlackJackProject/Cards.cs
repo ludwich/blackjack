@@ -9,6 +9,10 @@ namespace BlackJackProject
     public enum Face { Ace =1, Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten, J, Q, K }
     public class Cards
     {
+        public Cards()
+        {
+
+        }
         public Cards(int color, int value)
         {
             Suits = (Suits)color;
@@ -36,11 +40,9 @@ namespace BlackJackProject
                 }
             }
         }
+        
 
-
-
-
-        public static Stack<Cards> GetAFreshDeck()
+        public Stack<Cards> GetAFreshDeck()
         {
             List<Cards> AFreshDeck = new List<Cards>(312);
             for (int i = 0; i < 6; i++)
@@ -58,7 +60,7 @@ namespace BlackJackProject
         }
 
         static Random _random = new Random();
-        public static Stack<Cards> Shuffle(List<Cards> list)
+        public Stack<Cards> Shuffle(List<Cards> list)
         {
             Stack<Cards> MyCards = new Stack<Cards>(312);
             int n = list.Count;
@@ -77,7 +79,7 @@ namespace BlackJackProject
             return MyCards;
         }
 
-        public static void DrawACard(Player p, Stack<Cards> deck)
+        public void DrawACard(Player p, Stack<Cards> deck)
         {
             if (p.isActivePlayerSplit)
             {

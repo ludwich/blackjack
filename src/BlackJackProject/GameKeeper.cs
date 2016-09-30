@@ -10,6 +10,7 @@ namespace BlackJackProject
         //Bordets variabler
         Player[] tableOfPlayers;
         Stack<Cards> tableDeck;
+        Cards cd;
         ScreenManager scrm;
         TableManager tb;
         HighScoreManager hs;
@@ -18,7 +19,8 @@ namespace BlackJackProject
         {
             tableOfPlayers = new Player[4] { new Dealer(), null, null, null };
             tb = new TableManager();
-            tableDeck = Cards.GetAFreshDeck();
+            cd = new Cards();
+            tableDeck = cd.GetAFreshDeck();
             hs = new HighScoreManager();
             scrm = new ScreenManager(tb, tableOfPlayers);
             hs.Online = HighScoreManager.IsNetworkAvailable();
@@ -65,7 +67,7 @@ namespace BlackJackProject
                 while (tb.CheckHandValue(tableOfPlayers[0].myCards) < 17)
                 {
                     tableOfPlayers[0].isActivePlayer = true;
-                    Cards.DrawACard(tableOfPlayers[0], tableDeck);
+                    cd.DrawACard(tableOfPlayers[0], tableDeck);
                     scrm.RefreshTable();
                     tableOfPlayers[0].isActivePlayer = false;
                 }
@@ -207,9 +209,9 @@ namespace BlackJackProject
                     if (input == "y")
                     {
                         p1.myCardsSplit.Push(p1.myCards.Pop());     //Splitta korten
-                        Cards.DrawACard(p1, tableDeck);             //Dra ett nytt kort till my main deck
+                        cd.DrawACard(p1, tableDeck);             //Dra ett nytt kort till my main deck
                         p1.isActivePlayerSplit = true;                      //Sätt split active
-                        Cards.DrawACard(p1, tableDeck);             //Dra ytterligare ett kort till split deck...
+                        cd.DrawACard(p1, tableDeck);             //Dra ytterligare ett kort till split deck...
                         p1.Cash -= p1.BettingCash;                  //Insatsen för splitten dras från Cash
                         p1.BettingCashSplit = p1.BettingCash;
                         break;
@@ -295,14 +297,14 @@ namespace BlackJackProject
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    Cards.DrawACard(tableOfPlayers[0], tableDeck);          //Ge kort till dealern
+                    cd.DrawACard(tableOfPlayers[0], tableDeck);          //Ge kort till dealern
                     scrm.RefreshTable();
 
                     for (int k = 1; k < tableOfPlayers.Length; k++)
                     {
                         if (tableOfPlayers[k] != null && tableOfPlayers[k].BettingCash > 0)
                         {
-                            Cards.DrawACard(tableOfPlayers[k], tableDeck);
+                            cd.DrawACard(tableOfPlayers[k], tableDeck);
                             scrm.RefreshTable();
                         }
                     }
@@ -347,7 +349,7 @@ namespace BlackJackProject
 
                     if (playerChoice == "y")
                     {
-                        Cards.DrawACard(p1, tableDeck);
+                        cd.DrawACard(p1, tableDeck);
                         if (tb.IsFat(activeDeck))
 
                         {
