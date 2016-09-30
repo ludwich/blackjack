@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BlackJackProject
 {
-    public class ScreenManager
+    partial class ScreenManager
     {
         private TableManager tb;
         private Player[] players;

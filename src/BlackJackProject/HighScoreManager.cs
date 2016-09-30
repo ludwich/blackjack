@@ -22,7 +22,7 @@ namespace BlackJackProject
         /// Get the HighScore from a file located in c:\temp\highscore.txt
         /// if not found it will create a new one
         /// </summary>
-        /// <returns></returns>
+        /// <returns>L</returns>
         public List<HighScore> GetTheScoresFromFile()
         {
 

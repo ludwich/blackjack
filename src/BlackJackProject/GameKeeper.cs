@@ -24,18 +24,18 @@ namespace BlackJackProject
             hs = new HighScoreManager();
             scrm = new ScreenManager(tb, tableOfPlayers);
             hs.Online = HighScoreManager.IsNetworkAvailable();
-
+            
 
         }
 
-
+        
 
 
 
         //Loop för själva spelandet
         public void GameRunning()
         {
-
+            
 
             bool isRunning = true;
 
@@ -135,6 +135,7 @@ namespace BlackJackProject
                         isRunning = false;
                         hs.Online =  HighScoreManager.IsNetworkAvailable();
                         hs.HighScoreWorthyCheck(tableOfPlayers);
+                        scrm.DrawTheHighScores(hs);
                         break;
                     }
                     else if (input == "y")
