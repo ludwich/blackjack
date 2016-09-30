@@ -40,14 +40,21 @@ namespace BlackJackProject
 
         public string Name { get; set; }
         public double Cash { get; set; }
-        public Stack<Cards> myCards = new Stack<Cards>();
-        public Stack<Cards> mySplitCards = new Stack<Cards>();
         public bool isFat = false;
-        public bool activeSplit = false;
-        public double BettingCash { get; set; }
-        public double SplitCash { get; set; }
+        public bool isDealer = false;
+
+        public Stack<Cards> myCards = new Stack<Cards>();
+        public Stack<Cards> myCardsSplit = new Stack<Cards>();
+        
+        public int BettingCash { get; set; }
+        public int BettingCashSplit { get; set; }
+
         public bool isActivePlayer = false;
+        public bool isActivePlayerSplit = false;
+
         public string Text { get; set; }
+        public string TextSplit { get; set; }     
+
     }
 
 

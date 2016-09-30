@@ -10,6 +10,8 @@ namespace BlackJackProject
         public Dealer ()
         {
             Name = "Dealer";
+            isDealer = true;
+            BettingCash = 0;
         }
     }
 }

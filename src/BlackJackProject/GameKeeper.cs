@@ -20,7 +20,7 @@ namespace BlackJackProject
             tb = new TableManager();
             tableDeck = Cards.GetAFreshDeck();
             hs = new HighScoreManager();
-            scrm = new ScreenManager(tableOfPlayers);
+            scrm = new ScreenManager(tb, tableOfPlayers);
             hs.Online = HighScoreManager.IsNetworkAvailable();
 
 
@@ -173,7 +173,7 @@ namespace BlackJackProject
         private void SplitHand(Player p1)
         {
             Cards[] check = p1.myCards.ToArray();
-            if (check[0].Value == check[1].Value && p1.activeSplit == false && p1.Cash > p1.BettingCash)
+            if (check[0].Value == check[1].Value && p1.isActivePlayerSplit == false && p1.Cash > p1.BettingCash)
             {
                 while (true)
                 {
@@ -181,12 +181,12 @@ namespace BlackJackProject
                     string input = Console.ReadLine().ToLower();
                     if (input == "y")
                     {
-                        p1.mySplitCards.Push(p1.myCards.Pop());     //Splitta korten
+                        p1.myCardsSplit.Push(p1.myCards.Pop());     //Splitta korten
                         Cards.DrawACard(p1, tableDeck);             //Dra ett nytt kort till my main deck
-                        p1.activeSplit = true;                      //Sätt split active
+                        p1.isActivePlayerSplit = true;                      //Sätt split active
                         Cards.DrawACard(p1, tableDeck);             //Dra ytterligare ett kort till split deck...
                         p1.Cash -= p1.BettingCash;                  //Insatsen för splitten dras från Cash
-                        p1.SplitCash = p1.BettingCash;
+                        p1.BettingCashSplit = p1.BettingCash;
                         break;
                     }
                     else if (input == "n")
@@ -217,8 +217,8 @@ namespace BlackJackProject
                 if (tableOfPlayers[i] != null)
                 {
                     tableOfPlayers[i].myCards.Clear();
-                    tableOfPlayers[i].mySplitCards.Clear();
-                    tableOfPlayers[i].activeSplit = false;
+                    tableOfPlayers[i].myCardsSplit.Clear();
+                    tableOfPlayers[i].isActivePlayerSplit = false;
                     tableOfPlayers[i].isFat = false;
 
                 }
@@ -295,9 +295,9 @@ namespace BlackJackProject
 
 
             //Välj vilken deck som ska användas
-            if (p1.activeSplit)
+            if (p1.isActivePlayerSplit)
             {
-                activeDeck = p1.mySplitCards;
+                activeDeck = p1.myCardsSplit;
             }
             else
             {
@@ -345,9 +345,9 @@ namespace BlackJackProject
                 }
             }
             //Spela den andra handen, om du har splittat
-            if (p1.activeSplit)
+            if (p1.isActivePlayerSplit)
             {
-                p1.activeSplit = false;
+                p1.isActivePlayerSplit = false;
                 PlayYourHand(p1);
             }
             p1.isActivePlayer = false;
