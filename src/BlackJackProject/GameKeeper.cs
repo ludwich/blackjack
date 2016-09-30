@@ -22,8 +22,8 @@ namespace BlackJackProject
             hs = new HighScoreManager();
             scrm = new ScreenManager(tableOfPlayers);
             hs.Online = HighScoreManager.IsNetworkAvailable();
-            
-            
+
+
         }
 
 
@@ -43,7 +43,7 @@ namespace BlackJackProject
                 {
                     AddPlayer();
                 }
-                
+
                 ClearHands();
 
                 PlaceYourBet();
@@ -55,6 +55,7 @@ namespace BlackJackProject
                 {
                     if (tableOfPlayers[k] != null)
                     {
+                        SplitHand(tableOfPlayers[k]);
                         PlayYourHand(tableOfPlayers[k]);
                     }
 
@@ -168,6 +169,39 @@ namespace BlackJackProject
             }
         }
 
+        //Kontrollera om spelare vill splitta sin hand
+        private void SplitHand(Player p1)
+        {
+            Cards[] check = p1.myCards.ToArray();
+            if (check[0].Value == check[1].Value && p1.activeSplit == false && p1.Cash > p1.BettingCash)
+            {
+                while (true)
+                {
+                    Console.Write($"{p1.Name} do you want to split?");
+                    string input = Console.ReadLine().ToLower();
+                    if (input == "y")
+                    {
+                        p1.mySplitCards.Push(p1.myCards.Pop());     //Splitta korten
+                        Cards.DrawACard(p1, tableDeck);             //Dra ett nytt kort till my main deck
+                        p1.activeSplit = true;                      //Sätt split active
+                        Cards.DrawACard(p1, tableDeck);             //Dra ytterligare ett kort till split deck...
+                        p1.Cash -= p1.BettingCash;                  //Insatsen för splitten dras från Cash
+                        p1.SplitCash = p1.BettingCash;
+                        break;
+                    }
+                    else if (input == "n")
+                    {
+                        break;
+                    }
+                    else
+                    {
+
+                    }
+                }
+
+            }
+        }
+
         //Ta bort spelare från bordet
         private void RemovePlayer(Player p)
         {
@@ -183,6 +217,8 @@ namespace BlackJackProject
                 if (tableOfPlayers[i] != null)
                 {
                     tableOfPlayers[i].myCards.Clear();
+                    tableOfPlayers[i].mySplitCards.Clear();
+                    tableOfPlayers[i].activeSplit = false;
                     tableOfPlayers[i].isFat = false;
 
                 }
@@ -255,13 +291,25 @@ namespace BlackJackProject
             string playerChoice = "";
             bool isRunning = true;
             p1.isActivePlayer = true;
+            Stack<Cards> activeDeck;
 
-            while (isRunning&&p1.myCards.Count() > 0)
+
+            //Välj vilken deck som ska användas
+            if (p1.activeSplit)
+            {
+                activeDeck = p1.mySplitCards;
+            }
+            else
+            {
+                activeDeck = p1.myCards;
+            }
+
+            while (isRunning && activeDeck.Count() > 0)
             {
 
                 scrm.RefreshTable();
                 Console.SetCursorPosition(0, 25);
-                if (tb.IsBlackJack(p1.myCards))
+                if (tb.IsBlackJack(activeDeck)
                 {
                     Console.WriteLine($"Congrats {p1.Name} you have BLACKJACK!");
                     Thread.Sleep(2000);
@@ -269,13 +317,13 @@ namespace BlackJackProject
                 }
                 else
                 {
-                    Console.WriteLine($"{p1.Name} your handvalue is {tb.CheckHandValue(p1.myCards)} Do you want to draw a card? (Y/N)");
+                    Console.WriteLine($"{p1.Name} your handvalue is {tb.CheckHandValue(activeDeck)} Do you want to draw a card? (Y/N)");
                     playerChoice = Console.ReadLine().ToLower();
 
                     if (playerChoice == "y")
                     {
                         Cards.DrawACard(p1, tableDeck);
-                        if (tb.Isfat(p1.myCards))
+                        if (tb.Isfat(activeDeck)
                         {
                             Console.WriteLine("You busted!");
                             Thread.Sleep(2000);
@@ -295,17 +343,22 @@ namespace BlackJackProject
                     }
                 }
             }
-
+            //Spela den andra handen, om du har splittat
+            if (p1.activeSplit)
+            {
+                p1.activeSplit = false;
+                PlayYourHand(p1);
+            }
             p1.isActivePlayer = false;
         }
 
 
 
 
- 
-//
-//
-//
+
+        //
+        //
+        //
 
 
 

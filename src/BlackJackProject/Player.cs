@@ -43,7 +43,9 @@ namespace BlackJackProject
         public Stack<Cards> myCards = new Stack<Cards>();
         public Stack<Cards> mySplitCards = new Stack<Cards>();
         public bool isFat = false;
+        public bool activeSplit = false;
         public double BettingCash { get; set; }
+        public double SplitCash { get; set; }
         public bool isActivePlayer = false;
         public string Text { get; set; }
     }

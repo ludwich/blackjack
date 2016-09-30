@@ -79,8 +79,14 @@ namespace BlackJackProject
 
         public static void DrawACard(Player p, Stack<Cards> deck)
         {
-    
-            p.myCards.Push(deck.Pop());
+            if (p.activeSplit)
+            {
+                p.mySplitCards.Push(deck.Pop());
+            }
+            else
+            {
+                p.myCards.Push(deck.Pop());
+            }
         }
     
 
