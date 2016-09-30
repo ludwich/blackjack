@@ -75,6 +75,30 @@ namespace BlackJackProject
                 {
                     if (tableOfPlayers[k] != null)
                     {
+                        if (tableOfPlayers[k].BettingCashSplit > 0)
+                        {
+                            int splitwin = tb.CheckWinner((Dealer)tableOfPlayers[0], tableOfPlayers[k]);
+                            if (splitwin == 1)
+                            {
+                                Console.WriteLine("Dealer wins");
+                            }
+                            else if (splitwin == 2)
+                            {
+                                Console.WriteLine($"{tableOfPlayers[k].Name} wins on his SPLIT!");
+                            }
+                            else if (splitwin == 3)
+                            {
+                                Console.WriteLine("PUSH!");
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("Something went wrong....");
+
+                            }
+                        }
+
+
                         int winner = tb.CheckWinner((Dealer)tableOfPlayers[0], tableOfPlayers[k]);
                         if (winner == 1)
                         {
@@ -308,7 +332,7 @@ namespace BlackJackProject
             {
 
                 scrm.RefreshTable();
-                Console.SetCursorPosition(0, 25);
+                Console.SetCursorPosition(0, 30);
                 if (tb.IsBlackJack(activeDeck))
                 {
                     Console.WriteLine($"Congrats {p1.Name} you have BLACKJACK!");
@@ -323,9 +347,10 @@ namespace BlackJackProject
                     if (playerChoice == "y")
                     {
                         Cards.DrawACard(p1, tableDeck);
-                        if (tb.Isfat(activeDeck))
+                        if (tb.IsFat(activeDeck))
 
                         {
+                            scrm.RefreshTable();
                             Console.WriteLine("You busted!");
                             Thread.Sleep(2000);
                             isRunning = false;
