@@ -309,7 +309,7 @@ namespace BlackJackProject
 
                 scrm.RefreshTable();
                 Console.SetCursorPosition(0, 25);
-                if (tb.IsBlackJack(activeDeck)
+                if (tb.IsBlackJack(activeDeck))
                 {
                     Console.WriteLine($"Congrats {p1.Name} you have BLACKJACK!");
                     Thread.Sleep(2000);
@@ -323,7 +323,8 @@ namespace BlackJackProject
                     if (playerChoice == "y")
                     {
                         Cards.DrawACard(p1, tableDeck);
-                        if (tb.Isfat(activeDeck)
+                        if (tb.Isfat(activeDeck))
+
                         {
                             Console.WriteLine("You busted!");
                             Thread.Sleep(2000);
