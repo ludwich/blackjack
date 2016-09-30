@@ -23,13 +23,14 @@ namespace BlackJackProject
             }
             
             int x = 30, y = 10;
-            Console.SetCursorPosition(x, y);
+            Console.SetCursorPosition(x+10, y);
             Console.WriteLine("HighScore");
             y += 2;
             for (int i = 1; i < theHighScores.Count; i++)
             {
                 Console.SetCursorPosition(x, y);
                 Console.Write($"{i}. {theHighScores[i].Name}");
+                Console.SetCursorPosition(x+20, y);
                 Console.Write($"{theHighScores[i].Cash}");
                 Console.WriteLine();
                 y++;
