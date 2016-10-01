@@ -22,7 +22,7 @@ namespace BlackJackProject
             cd = new Cards();
             tableDeck = cd.GetAFreshDeck();
             hs = new HighScoreManager();
-            scrm = new ScreenManager(tb, tableOfPlayers);
+            scrm = new ScreenManager(tb, tableOfPlayers,hs);
             hs.Online = HighScoreManager.IsNetworkAvailable();
             
 

@@ -10,41 +10,43 @@ namespace BlackJackProject
         private TableManager tb;
         private Player[] players;
         private string[][] screen = new string[3][] { new string[25], new string[25], new string[25] };
+        private HighScoreManager hs;
+        private string[] hsTable = {new string(' ', 20),new string(' ', 20),new string(' ', 20),new string(' ', 20),new string(' ', 20) };
 
-        public ScreenManager(TableManager t, Player[] p)
+        public ScreenManager(TableManager t, Player[] p, HighScoreManager h)
         {
             Console.OutputEncoding = System.Text.Encoding.Unicode;
             tb = t;
             players = p;
-
-            SetSpaces(0, 0, 9);
-            SetSpaces(0, 23, 2);
-            SetSpaces(1, 7, 4);
-            SetSpaces(2, 0, 9);
-            SetSpaces(2, 23, 2);
+            SetSpacesInit();
+            hs = h;
+            SetTheHighScores(hs);
+            PrintInfoLeft();
+            PrintTheHighScores();
         }
 
         public void RefreshTable()
-        {
-            /* testing-skit
-            players[1].myCardsSplit = players[2].myCards;
-            players[1].Text = "BLACKJACK!!";
-            players[1].BettingCashSplit = 5;
-            players[2].myCardsSplit = players[2].myCards;
-            players[2].Text = "u won $10!!";
-            players[2].BettingCashSplit = 50;
-            players[3].myCardsSplit = players[2].myCards;
-            players[3].TextSplit = "nice split!!";
-            players[3].BettingCashSplit = 15;
-            players[3].isActivePlayerSplit = true;
-            */
-
+        {            
             Console.Clear();
-            SetScreen();
+            SetScreen(players[0], 1, 0);
+            SetScreen(players[1], 2, 9);
+            SetScreen(players[2], 1, 11);
+            SetScreen(players[3], 0, 9);            
             PrintScreen();
         }
 
-        public void SetSpaces(int c, int r, int l)
+        // Sets spaces that cant be updated
+        private void SetSpacesInit()
+        {
+            SetSpaces(0, 0, 1);
+            SetSpaces(0, 7, 2);
+            SetSpaces(0, 23, 2);
+            SetSpaces(1, 7, 4);
+            SetSpaces(2, 8, 1);
+            SetSpaces(2, 23, 2);
+        }
+
+        private void SetSpaces(int c, int r, int l)
         {
             for (int i = r; i < r + l; i++)
             {
@@ -52,42 +54,39 @@ namespace BlackJackProject
             }
         }
 
-        private void SetScreen()
+        private void PrintTheHighScores() //8x26
         {
-            // Dealer
-            SetBox(players[0], 1, 0, false);
 
-            // Player 1           
-            if (players[1] == null)
+            screen[2][0] = new string(' ', 2) + new string('_', 23) + " ";
+            screen[2][1] = " |" + new string(' ', 7) + "Highscore" + new string(' ', 7) + "|";
+            for (int i = 0; i < hsTable.Length; i++)
             {
-                SetSpaces(2, 9, 14);
+                screen[2][i+2] = $" |{i+1} {hsTable[i]}|";
+            }
+            screen[2][7] = " |" + new string('_', 23) + "|";
+        }
+
+        private void PrintInfoLeft() //8x26
+        {
+            screen[0][1] = new string(' ', 5) + new string('_', 16) + new string(' ', 5);
+            screen[0][2] = new string(' ', 4) + "| Jonthieboi's   |" + new string(' ', 4);
+            screen[0][3] = new string(' ', 4) + "|  Blackjack     |" + new string(' ', 4);
+            screen[0][4] = new string(' ', 4) + "|   Min bet $1   |" + new string(' ', 4);
+            screen[0][5] = new string(' ', 4) + "|   Max bet $999 |" + new string(' ', 4);
+            screen[0][6] = new string(' ', 4) + "|" + new string('_', 16) + "|" + new string(' ', 4);
+        }
+
+        private void SetScreen(Player p, int c, int r)
+        {            
+            if (p == null)
+            {
+                SetSpaces(c, r, 14);
             }
             else
             {
-                SetBox(players[1], 2, 9, false);
+                SetBox(p, c, r, false);
 
-            }
-
-            // Player 2
-            if (players[2] == null)
-            {
-                SetSpaces(1, 11, 14);
-            }
-            else
-            {
-                SetBox(players[2], 1, 11, false);
-
-            }
-
-            // Player 3
-            if (players[3] == null)
-            {
-                SetSpaces(0, 9, 14);
-            }
-            else
-            {
-                SetBox(players[3], 0, 9, false);
-            }
+            }            
         }
 
         private void SetBox(Player p, int c, int r, bool s)
@@ -95,9 +94,8 @@ namespace BlackJackProject
             string[] tmp;
             Stack<Cards> tmpCards;
             bool tmpActivePlayer;
-            int tmpBettingCash;
+            int tmpBettingCash, j;
             string tmpText;
-            int j;
 
             if (s) // vid split
             {
@@ -142,7 +140,7 @@ namespace BlackJackProject
             parts[4 - j] = new string(' ', 2) + tmp[2];
             parts[5 - j] = new string(' ', 2) + tmp[3];
             parts[6 - j] = new string(' ', 2) + tmp[4];
-            parts[7 - j] = new string(' ', 2) + GetBet(tmpBettingCash) + " " + GetText(tmpText);
+            parts[7 - j] = GetBet(tmpBettingCash) + " " + GetText(tmpText);
 
             int k = 0;
             for (int i = r; i < r + parts.Length; i++)
@@ -276,36 +274,20 @@ namespace BlackJackProject
 
         private string GetName(string n) // 1 x 10
         {
-            if (n == null)
-            {
-                return new string(' ', 10);
-            }
-            else
-            {
-                return n + new string(' ', 10 - n.Length);
-            }
+            return n + new string(' ', 10 - n.Length);
         }
 
         private string GetBalance(double b) // 1 x 12
         {
-            if (b == -1)
+            string tmp = b.ToString();
+
+            if (tmp.Length < 12)
             {
-                return new string(' ', 12);
+                return "$" + tmp + new string(' ', 11 - tmp.Length);
             }
             else
             {
-                string tmp = b.ToString();
-
-                if (tmp.Length < 12)
-                {
-                    return "$" + tmp + new string(' ', 11 - tmp.Length);
-                }
-                else
-                {
-                    return "$" + tmp.Substring(0, 11);
-                }
-
-
+                return "$" + tmp.Substring(0, 11);
             }
         }
 
@@ -346,15 +328,15 @@ namespace BlackJackProject
             }
         }
 
-        private string GetText(string t) // 1 x 19
+        private string GetText(string t) // 1 x 21
         {
             if (t == null)
             {
-                return new string(' ', 19);
+                return new string(' ', 21);
             }
             else
             {
-                return t + new string(' ', 19 - t.Length);
+                return t + new string(' ', 21 - t.Length);
             }
 
         }
