@@ -11,7 +11,6 @@ namespace BlackJackProject
         {
             Name = "Dealer";
             isDealer = true;
-            BettingCash = 0;
         }
     }
 }
