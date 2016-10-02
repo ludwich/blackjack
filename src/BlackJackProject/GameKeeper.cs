@@ -157,6 +157,9 @@ namespace BlackJackProject
         {
             int remaining = 0;
 
+            scrm.RefreshTable();
+            Console.SetCursorPosition(0, 30);
+
             for (int i = 1; i < tableOfPlayers.Length; i++)
             {
                 if (tableOfPlayers[i] != null && tableOfPlayers[i].Cash < 1)
@@ -180,9 +183,11 @@ namespace BlackJackProject
         private void AddPlayer()
         {
             int nrOfPlayers;
-
+            scrm.RefreshTable();
+            Console.SetCursorPosition(0, 30);
             while (true)
             {
+                
                 Console.Write($"How many new players (max {RemainingSeats()}): ");
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out nrOfPlayers) && (nrOfPlayers <= RemainingSeats()) && (nrOfPlayers >= 0))
@@ -201,6 +206,9 @@ namespace BlackJackProject
         //Kontrollera om spelare vill splitta sin hand
         private void SplitHand(Player p1)
         {
+            scrm.RefreshTable();
+            Console.SetCursorPosition(0, 30);
+
             Cards[] check = p1.myCards.ToArray();
             if (check[0].Value == check[1].Value && p1.isActivePlayerSplit == false && p1.Cash >= p1.BettingCash && p1.BettingCash >=2)
             {
@@ -258,6 +266,8 @@ namespace BlackJackProject
         //Satsa dina surt förvärvade pengar din speltorsk!
         private void PlaceYourBet()
         {
+            scrm.RefreshTable();
+            Console.SetCursorPosition(0, 30);
 
             for (int i = 1; i < tableOfPlayers.Count(); i++)
             {

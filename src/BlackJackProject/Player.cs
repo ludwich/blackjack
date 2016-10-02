@@ -16,6 +16,8 @@ namespace BlackJackProject
         public Player(string s)
         {
             Console.Clear();
+            Console.SetCursorPosition(0, 30);
+
             Cash = 100;
 
 
