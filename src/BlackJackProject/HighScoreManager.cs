@@ -151,6 +151,7 @@ namespace BlackJackProject
         /// <param name="sortedList">Needs a List<HighScores></HighScores></param>
         public void SaveHighScoreMyJson(List<HighScore> sortedList)
         {
+            Console.Clear();
             var client = new HttpClient();
             var uri = new Uri("https://api.myjson.com/bins/zs7s");
 
@@ -159,6 +160,16 @@ namespace BlackJackProject
             client.BaseAddress = uri;
 
             var httpmessage = client.PutAsync(uri, new StringContent(json.ToString(), Encoding.UTF8, "application/json"));
+            Console.Write($"Uploading");
+            while (!httpmessage.IsCompleted)
+            {
+                Console.Write($"*");
+                System.Threading.Thread.Sleep(100);
+            }
+            Console.Write("Done.");
+            System.Threading.Thread.Sleep(100);
+            Console.Clear();
+
             httpmessage.Wait();
         }
 
@@ -171,10 +182,20 @@ namespace BlackJackProject
             List<HighScore> highScores = new List<HighScore>();
             try
             {
+                Console.Clear();
                 var client = new HttpClient();
                 var uri = new Uri("https://api.myjson.com/bins/zs7s");
                 client.BaseAddress = uri;
                 var task = client.GetStringAsync(uri);
+                Console.Write($"Downloading");
+                while (!task.IsCompleted)
+                {
+                    Console.Write($"*");
+                    System.Threading.Thread.Sleep(100);
+                }
+                Console.Write("Done.");
+                System.Threading.Thread.Sleep(100);
+                Console.Clear();
                 task.Wait();
                 string data = await task;
 
