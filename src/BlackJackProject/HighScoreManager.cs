@@ -16,8 +16,6 @@ namespace BlackJackProject
         private const string filePath = @"c:\temp\highscore.txt";
         public bool Online { get; set; }
 
-        
-
         /// <summary>
         /// Get the HighScore from a file located in c:\temp\highscore.txt
         /// if not found it will create a new one
@@ -114,15 +112,16 @@ namespace BlackJackProject
             {
                 TheScores = GetTheScoresFromFile();
             }
-            
 
+            bool isHigscoreNew = false;
             for (int i = 1; i < players.Length; i++)
             {
                 if (players[i] != null)
                 {
-
+                    if (players[i].Cash> TheScores[9].Cash)
                     {
                         TheScores.Add(new HighScore(players[i].Name, players[i].Cash));
+                        isHigscoreNew = true;
                     }
                 }
 
@@ -131,15 +130,14 @@ namespace BlackJackProject
             var sortedList = TheScores.OrderByDescending(x => x.Cash)
                             .Take(10)
                             .ToList();
-            if (Online)
+            if (Online && isHigscoreNew)
             {
                 SaveHighScoreMyJson(sortedList);
             }
-            else
+            else if (!Online && isHigscoreNew)
             {
                 SaveTheScoresToFile(sortedList);
             }
-
         }
 
 
@@ -160,7 +158,8 @@ namespace BlackJackProject
             client.BaseAddress = uri;
 
             var httpmessage = client.PutAsync(uri, new StringContent(json.ToString(), Encoding.UTF8, "application/json"));
-            Console.Write($"Uploading");
+            Console.SetCursorPosition(20, 10);
+            Console.Write($"Uploading HighScore");
             while (!httpmessage.IsCompleted)
             {
                 Console.Write($"*");
@@ -169,6 +168,7 @@ namespace BlackJackProject
             Console.Write("Done.");
             System.Threading.Thread.Sleep(100);
             Console.Clear();
+            
 
             httpmessage.Wait();
         }
@@ -187,7 +187,8 @@ namespace BlackJackProject
                 var uri = new Uri("https://api.myjson.com/bins/zs7s");
                 client.BaseAddress = uri;
                 var task = client.GetStringAsync(uri);
-                Console.Write($"Downloading");
+                Console.SetCursorPosition(20, 10);
+                Console.Write($"Downloading HighScore");
                 while (!task.IsCompleted)
                 {
                     Console.Write($"*");
