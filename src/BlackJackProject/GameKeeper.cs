@@ -159,7 +159,7 @@ namespace BlackJackProject
 
             for (int i = 1; i < tableOfPlayers.Length; i++)
             {
-                if (tableOfPlayers[i] != null && tableOfPlayers[i].Cash == 0)
+                if (tableOfPlayers[i] != null && tableOfPlayers[i].Cash < 1)
                 {
                     Console.WriteLine($"{tableOfPlayers[i].Name} you are broke and will be removed from the table!");
                     Console.ReadKey();
@@ -202,7 +202,7 @@ namespace BlackJackProject
         private void SplitHand(Player p1)
         {
             Cards[] check = p1.myCards.ToArray();
-            if (check[0].Value == check[1].Value && p1.isActivePlayerSplit == false && p1.Cash > p1.BettingCash)
+            if (check[0].Value == check[1].Value && p1.isActivePlayerSplit == false && p1.Cash >= p1.BettingCash && p1.BettingCash >=2)
             {
                 while (true)
                 {
@@ -270,7 +270,7 @@ namespace BlackJackProject
                         Console.Write($"{tableOfPlayers[i].Name} have {tableOfPlayers[i].Cash}, how much do you want to bet? : ");
                         string input = Console.ReadLine();
                         int x;
-                        if (int.TryParse(input, out x) && x <= tableOfPlayers[i].Cash && x >= 0)
+                        if (int.TryParse(input, out x) && x <= tableOfPlayers[i].Cash && x >= 1)
                         {
                             tableOfPlayers[i].BettingCash = x;
                             tableOfPlayers[i].Cash -= x;
