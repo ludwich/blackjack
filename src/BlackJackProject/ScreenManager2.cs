@@ -59,15 +59,8 @@ namespace BlackJackProject
                 tmp = theHighScores[i].Cash.ToString();
                 name = theHighScores[i].Name + new string(' ', 10 - theHighScores[i].Name.Length);
 
-                if (tmp.Length < 10)
-                {
-                    cash = tmp + new string(' ', 9 - tmp.Length);
-                }
-                else
-                {
-                    cash = tmp.Substring(0, 9);
-                }
-
+                cash = (tmp.Length < 10) ? tmp + new string(' ', 9 - tmp.Length) : tmp.Substring(0, 9);
+                
                 hsTable[i] = $"{name} ${cash}";
             }         
         }

@@ -74,21 +74,19 @@ namespace BlackJackProject
                             int splitwin = tb.CheckWinner((Dealer)tableOfPlayers[0], tableOfPlayers[k]);
                             if (splitwin == 1)
                             {
-                                Console.WriteLine("Dealer wins");
+                                tableOfPlayers[k].TextSplit = "Loose";
                             }
                             else if (splitwin == 2)
                             {
-                                Console.WriteLine($"{tableOfPlayers[k].Name} wins on his SPLIT!");
+                                tableOfPlayers[k].TextSplit = "Win";
                             }
                             else if (splitwin == 3)
                             {
-                                Console.WriteLine("PUSH!");
-
+                                tableOfPlayers[k].TextSplit = "PUSH";
                             }
                             else
                             {
                                 Console.WriteLine("Something went wrong....");
-
                             }
                         }
 
@@ -96,22 +94,21 @@ namespace BlackJackProject
                         int winner = tb.CheckWinner((Dealer)tableOfPlayers[0], tableOfPlayers[k]);
                         if (winner == 1)
                         {
-                            Console.WriteLine("Dealer wins");
+                            tableOfPlayers[k].Text = "Loose";
                         }
                         else if (winner == 2)
                         {
-                            Console.WriteLine($"{tableOfPlayers[k].Name} wins!");
+                            tableOfPlayers[k].Text = "Win";
                         }
                         else if (winner == 3)
                         {
-                            Console.WriteLine("PUSH!");
-
+                            tableOfPlayers[k].Text = "PUSH";
                         }
                         else
                         {
                             Console.WriteLine("Something went wrong....");
-
                         }
+                        scrm.RefreshTable();
                     }
 
                 }
@@ -274,7 +271,7 @@ namespace BlackJackProject
                         Console.Write($"{tableOfPlayers[i].Name} have {tableOfPlayers[i].Cash}, how much do you want to bet? : ");
                         string input = Console.ReadLine();
                         int x;
-                        if (int.TryParse(input, out x) && x <= tableOfPlayers[i].Cash && x >= 1)
+                        if (int.TryParse(input, out x) && x <= tableOfPlayers[i].Cash && x >= 1 && input.Length <= 3)
                         {
                             tableOfPlayers[i].BettingCash = x;
                             tableOfPlayers[i].Cash -= x;
@@ -304,6 +301,7 @@ namespace BlackJackProject
                 for (int i = 0; i < 2; i++)
                 {
                     cd.DrawACard(tableOfPlayers[0], tableDeck);          //Ge kort till dealern
+                    Thread.Sleep(240);
                     scrm.RefreshTable();
 
                     for (int k = 1; k < tableOfPlayers.Length; k++)
@@ -311,6 +309,7 @@ namespace BlackJackProject
                         if (tableOfPlayers[k] != null && tableOfPlayers[k].BettingCash > 0)
                         {
                             cd.DrawACard(tableOfPlayers[k], tableDeck);
+                            Thread.Sleep(240);
                             scrm.RefreshTable();
                         }
                     }
