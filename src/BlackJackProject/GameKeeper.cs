@@ -114,7 +114,7 @@ namespace BlackJackProject
                     }
 
                 }
-                Console.ReadKey();
+               
 
                 //Kolla om det ska spelas en ny omgång
                 while (true)
@@ -339,6 +339,7 @@ namespace BlackJackProject
             }
             if (activeDeck.Count ==2 && tb.CheckHandValue(activeDeck) <= 11)
             {
+                scrm.RefreshTable();
                 Console.SetCursorPosition(0, 27);
                 bool isDubbling = true;
                 while (isDubbling && p1.Cash >= p1.BettingCash)
