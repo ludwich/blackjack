@@ -92,15 +92,15 @@ namespace BlackJackProject
         private void SetBox(Player p, int c, int r, bool s)
         {
             string[] tmp;
-            Stack<Cards> tmpCards;
-            bool tmpActivePlayer;
+            Stack<Cards> tmpCards, tmpValue;
             int tmpBettingCash, j;
             string tmpText;
-            bool isDealer = p.isDealer;
+            bool tmpActivePlayer, dealerHideCard = p.isDealer && !p.isActivePlayer && p.myCards.Count == 2;
 
             if (s) // vid split
             {
                 tmpCards = p.myCardsSplit;
+                tmpValue = tmpCards;
                 tmpActivePlayer = p.isActivePlayerSplit;
                 tmpBettingCash = p.BettingCashSplit;
                 tmpText = p.TextSplit;
@@ -109,39 +109,40 @@ namespace BlackJackProject
             else
             {
                 tmpActivePlayer = p.isActivePlayer;
+                tmpCards = p.myCards;
 
-                if (isDealer && !tmpActivePlayer && p.myCards.Count == 2) // dölja dealerns andra hålkort
+                if (dealerHideCard) // fixar value på dealern pga. ett kort är dolt
                 {
-                    var sTmp = new Stack<Cards>();
-                    sTmp.Push(p.myCards.ElementAt<Cards>(1));
-                    tmpCards = sTmp;
+                    var tmpCardsForValue = new Stack<Cards>();
+                    tmpCardsForValue.Push(p.myCards.ElementAt<Cards>(1));
+                    tmpValue = tmpCardsForValue;
                 }
                 else
                 {
-                    tmpCards = p.myCards;
+                    tmpValue = tmpCards;
                 }
 
                 tmpBettingCash = p.BettingCash;
                 tmpText = p.Text;
 
-                j = (isDealer) ? j = 1 : j = 0;
+                j = (p.isDealer) ? j = 1 : j = 0;
 
             }
 
-            tmp = GetCardParts(tmpCards.ToArray(), isDealer);
+            tmp = GetCardParts(tmpCards.ToArray(), dealerHideCard);
             var parts = new string[8 - j];
 
             if (!s)
             {
                 parts[0] = new string(' ', 5) + GetName(p.Name) + new string(' ', 11);
 
-                if (!isDealer)
+                if (!p.isDealer)
                 {
                     parts[1] = new string(' ', 5) + GetBalance(p.Cash) + new string(' ', 9);
                 }
             }
 
-            parts[2 - j] = GetValue(tmpCards) + tmp[0];
+            parts[2 - j] = GetValue(tmpValue) + tmp[0];
             parts[3 - j] = GetArrow(tmpActivePlayer) + tmp[1];
             parts[4 - j] = new string(' ', 2) + tmp[2];
             parts[5 - j] = new string(' ', 2) + tmp[3];
@@ -193,11 +194,11 @@ namespace BlackJackProject
 
             var parts = new string[5];
 
-            if (d && c.Length == 1) // bara visa 1 kort på dealern
+            if (d) // gömma andra hålkortet
             {
                 parts[0] = " " + new string('_', 7) + new string(' ', 16);
-                parts[1] = "|" + GetFace(c[0]) + "|" + new string(' ', 4) + "|" + new string(' ', 15);
-                parts[2] = "|" + GetSuit(c[0]) + " |" + new string(' ', 4) + "|" + new string(' ', 15);
+                parts[1] = "|" + GetFace(c[1]) + "|" + new string(' ', 4) + "|" + new string(' ', 15);
+                parts[2] = "|" + GetSuit(c[1]) + " |" + new string(' ', 4) + "|" + new string(' ', 15);
                 parts[3] = "|" + new string(' ', 2) + "|" + new string(' ', 4) + "|" + new string(' ', 15);
                 parts[4] = "|" + new string('_', 2) + "|" + new string('_', 4) + "|" + new string(' ', 15);
             }
