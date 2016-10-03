@@ -24,15 +24,11 @@ namespace BlackJackProject
             hs = new HighScoreManager();
             hs.Online = HighScoreManager.IsNetworkAvailable();
             scrm = new ScreenManager(tb, tableOfPlayers, hs);
-
-
-
         }
+       
         //Loop för själva spelandet
         public void GameRunning()
         {
-
-
             bool isRunning = true;
 
             while (isRunning)
@@ -268,7 +264,7 @@ namespace BlackJackProject
             {
                 if (tableOfPlayers[i] != null)
                 {
-
+                    scrm.RefreshTable();
                     bool isBetting = true;
                     while (isBetting)
                     {
