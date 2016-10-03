@@ -112,14 +112,8 @@ namespace BlackJackProject
                 tmpBettingCash = p.BettingCash;
                 tmpText = p.Text;
 
-                if (p.isDealer) //ändra till att kolla om underklassen är av Dealer
-                {
-                    j = 1;
-                }
-                else
-                {
-                    j = 0;
-                }
+                j = (p.isDealer) ? j = 1 : j = 0;
+            
             }
 
             tmp = GetCardParts(tmpCards.ToArray());
@@ -217,7 +211,6 @@ namespace BlackJackProject
             }
 
             return parts;
-
         }
 
         private string GetSuit(Cards c) // 1 x 1
@@ -280,67 +273,31 @@ namespace BlackJackProject
         private string GetBalance(double b) // 1 x 12
         {
             string tmp = b.ToString();
-
-            if (tmp.Length < 12)
-            {
-                return "$" + tmp + new string(' ', 11 - tmp.Length);
-            }
-            else
-            {
-                return "$" + tmp.Substring(0, 11);
-            }
+            return (tmp.Length < 12) ? "$" + tmp + new string(' ', 11 - tmp.Length) : "$" + tmp.Substring(0, 11);
         }
 
         private string GetValue(Stack<Cards> s) // 1 x 2
         {
             int v = tb.CheckHandValue(s);
-            if (s == null || v == 0)
-            {
-                return new string(' ', 2);
-            }
-            else
-            {
-                return new string(' ', 2 - v.ToString().Length) + v.ToString();
-            }
+            return (s == null || v == 0) ? new string(' ', 2) : new string(' ', 2 - v.ToString().Length) + v.ToString();
         }
 
         private string GetArrow(bool a) // 1 x 2
         {
-            if (a)
-            {
-                return "->";
-            }
-            else
-            {
-                return new string(' ', 2);
-            }
+            return (a)? "->" : new string(' ', 2);
+           
         }
 
         private string GetBet(int b) // 1 x 4
         {
-            if (b == 0)
-            {
-                return new string(' ', 4);
-            }
-            else
-            {
-                return "$" + b.ToString() + new string(' ', 3 - b.ToString().Length);
-            }
+            return (b==0) ? new string(' ', 4) : "$" + b.ToString() + new string(' ', 3 - b.ToString().Length);
+            
         }
 
         private string GetText(string t) // 1 x 21
         {
-            if (t == null)
-            {
-                return new string(' ', 21);
-            }
-            else
-            {
-                return t + new string(' ', 21 - t.Length);
-            }
-
+            return (t==null) ? new string(' ', 21) : t + new string(' ', 21 - t.Length);
+           
         }
-
-
     }
 }

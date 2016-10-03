@@ -251,6 +251,7 @@ namespace BlackJackProject
                     tableOfPlayers[i].isActivePlayerSplit = false;
                     tableOfPlayers[i].isFat = false;
                     tableOfPlayers[i].Text = "";
+                    tableOfPlayers[i].TextSplit = "";
                 }
             }
             scrm.RefreshTable();
@@ -343,7 +344,7 @@ namespace BlackJackProject
                 Console.SetCursorPosition(0, 30);
                 if (tb.IsBlackJack(activeDeck))
                 {
-                    p1.Text = "BLACKJACK!";
+                    string textBox = p1.isActivePlayerSplit ? p1.TextSplit = "BLACKJACK" : p1.Text = "BLACKJACK";
                     scrm.RefreshTable();
                     Console.WriteLine($"Congrats {p1.Name} you have BLACKJACK!");
                     Thread.Sleep(2000);
@@ -358,20 +359,19 @@ namespace BlackJackProject
                     {
                         cd.DrawACard(p1, tableDeck);
                         if (tb.IsFat(activeDeck))
-
                         {
-                            p1.Text = "Busted";
+                            string textBox = p1.isActivePlayerSplit ? p1.TextSplit = "Busted" : p1.Text = "Busted";
                             scrm.RefreshTable();
                             Console.WriteLine("You busted!");
                             Thread.Sleep(2000);
                             isRunning = false;
                             p1.isFat = true;
                         }
-
-
                     }
                     else if (playerChoice == "n")
                     {
+                        string textBox = p1.isActivePlayerSplit ? p1.TextSplit = "Stands" : p1.Text = "Stands";
+                        scrm.RefreshTable();
                         isRunning = false;
                     }
                     else
