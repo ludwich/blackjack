@@ -150,6 +150,7 @@ namespace BlackJackProject
 
             for (int i = 1; i < tableOfPlayers.Length; i++)
             {
+                scrm.RefreshTable();
                 if (tableOfPlayers[i] != null && tableOfPlayers[i].Cash < 1)
                 {
                     Console.WriteLine($"{tableOfPlayers[i].Name} you are broke and will be removed from the table!");
@@ -340,7 +341,7 @@ namespace BlackJackProject
             {
 
                 scrm.RefreshTable();
-                Console.SetCursorPosition(0, 30);
+                Console.SetCursorPosition(0, 27);
                 if (tb.IsBlackJack(activeDeck))
                 {
                     string textBox = p1.isActivePlayerSplit ? p1.TextSplit = "BLACKJACK" : p1.Text = "BLACKJACK";
@@ -351,7 +352,7 @@ namespace BlackJackProject
                 }
                 else
                 {
-                    Console.WriteLine($"{p1.Name} your handvalue is {tb.CheckHandValue(activeDeck)} Do you want to draw a card? (Y/N)");
+                    Console.Write($"{p1.Name} your handvalue is {tb.CheckHandValue(activeDeck)} Do you want to draw a card? (Y/N) : ");
                     playerChoice = Console.ReadLine().ToLower();
 
                     if (playerChoice == "y")

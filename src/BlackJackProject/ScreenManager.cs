@@ -285,19 +285,16 @@ namespace BlackJackProject
         private string GetArrow(bool a) // 1 x 2
         {
             return (a)? "->" : new string(' ', 2);
-           
         }
 
         private string GetBet(int b) // 1 x 4
         {
             return (b==0) ? new string(' ', 4) : "$" + b.ToString() + new string(' ', 3 - b.ToString().Length);
-            
         }
 
         private string GetText(string t) // 1 x 21
         {
             return (t==null) ? new string(' ', 21) : t + new string(' ', 21 - t.Length);
-           
         }
     }
 }
