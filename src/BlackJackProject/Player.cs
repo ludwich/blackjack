@@ -15,7 +15,7 @@ namespace BlackJackProject
         }
         public Player(string s)
         {
-            Console.Clear();
+            
             Console.SetCursorPosition(0, 30);
             Cash = 100;
             Console.Write("Your name can't be longer then 10 characters \nEnter your name: ");
@@ -30,8 +30,6 @@ namespace BlackJackProject
             {
                 Cash = 100000;
             }
-            Console.Clear();
-
         }
 
         public string Name { get; set; }

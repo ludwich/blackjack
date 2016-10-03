@@ -185,7 +185,9 @@ namespace BlackJackProject
                 {
                     for (int i = 1; i <= nrOfPlayers; i++)
                     {
+                        scrm.RefreshTable();
                         tableOfPlayers[Array.IndexOf(tableOfPlayers, null)] = new Player("");
+                        
                     }
                     break;
                 }
