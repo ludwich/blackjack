@@ -65,10 +65,10 @@ namespace BlackJackProject
                     cd.DrawACard(tableOfPlayers[0], tableDeck);
                     scrm.RefreshTable();
                 }
-                
+                tableOfPlayers[0].Text = (tb.CheckHandValue(tableOfPlayers[0].myCards) > 21) ? "Busted" : "";
 
                 //Kontrollera vinnare
-                    for (int k = 1; k < tableOfPlayers.Length; k++)
+                for (int k = 1; k < tableOfPlayers.Length; k++)
                 {
                     if (tableOfPlayers[k] != null)
                     {
@@ -305,10 +305,6 @@ namespace BlackJackProject
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    cd.DrawACard(tableOfPlayers[0], tableDeck);          //Ge kort till dealern
-                    Thread.Sleep(240);
-                    scrm.RefreshTable();
-
                     for (int k = 1; k < tableOfPlayers.Length; k++)
                     {
                         if (tableOfPlayers[k] != null && tableOfPlayers[k].BettingCash > 0)
@@ -318,6 +314,9 @@ namespace BlackJackProject
                             scrm.RefreshTable();
                         }
                     }
+                    cd.DrawACard(tableOfPlayers[0], tableDeck);          //Ge kort till dealern
+                    Thread.Sleep(240);
+                    scrm.RefreshTable();
                 }
             }
         }
@@ -332,13 +331,17 @@ namespace BlackJackProject
 
 
             //Välj vilken deck som ska användas
-            if (p1.isActivePlayerSplit)
+            if (!p1.isActivePlayerSplit)
             {
-                activeDeck = p1.myCardsSplit;
+                
+                activeDeck = p1.myCards;
             }
             else
             {
-                activeDeck = p1.myCards;
+                p1.isActivePlayerSplit = true;
+                p1.isActivePlayer = false;
+                
+                activeDeck = p1.myCardsSplit;
             }
 
             while (isRunning && activeDeck.Count() > 0)
@@ -377,6 +380,7 @@ namespace BlackJackProject
                         string textBox = p1.isActivePlayerSplit ? p1.TextSplit = "Stands" : p1.Text = "Stands";
                         scrm.RefreshTable();
                         isRunning = false;
+                        break;
                     }
                     else
                     {
@@ -388,6 +392,7 @@ namespace BlackJackProject
             if (p1.isActivePlayerSplit)
             {
                 p1.isActivePlayerSplit = false;
+                p1.isActivePlayer = true;
                 PlayYourHand(p1);
             }
             p1.isActivePlayer = false;
