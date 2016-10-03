@@ -54,18 +54,17 @@ namespace BlackJackProject
                     }
 
                 }
-
+                tableOfPlayers[0].isActivePlayer = true;
                 //Låt dealern dra sina kort
                 while (tb.CheckHandValue(tableOfPlayers[0].myCards) < 17)
                 {
-                    tableOfPlayers[0].isActivePlayer = true;
                     cd.DrawACard(tableOfPlayers[0], tableDeck);
                     scrm.RefreshTable();
-                    tableOfPlayers[0].isActivePlayer = false;
                 }
+                
 
                 //Kontrollera vinnare
-                for (int k = 1; k < tableOfPlayers.Length; k++)
+                    for (int k = 1; k < tableOfPlayers.Length; k++)
                 {
                     if (tableOfPlayers[k] != null)
                     {
@@ -198,7 +197,7 @@ namespace BlackJackProject
         private void SplitHand(Player p1)
         {
             scrm.RefreshTable();
-            Console.SetCursorPosition(0, 30);
+            Console.SetCursorPosition(0, 27);
 
             Cards[] check = p1.myCards.ToArray();
             if (check[0].Value == check[1].Value && p1.isActivePlayerSplit == false && p1.Cash >= p1.BettingCash && p1.BettingCash >= 2)
@@ -240,6 +239,7 @@ namespace BlackJackProject
         //Töm alla spelares gamla händer
         private void ClearHands()
         {
+            tableOfPlayers[0].isActivePlayer = false;
             for (int i = 0; i < tableOfPlayers.Length; i++)
             {
                 if (tableOfPlayers[i] != null)
@@ -296,7 +296,7 @@ namespace BlackJackProject
         //Dela ut 2 kort till varje spelare vid bordet, inkl. Dealern på första platsen
         private void NewRound()
         {
-
+            
             if (tableOfPlayers[0].myCards.Count == 0)
             {
                 for (int i = 0; i < 2; i++)
