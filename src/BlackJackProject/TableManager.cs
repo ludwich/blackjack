@@ -207,7 +207,7 @@ namespace BlackJackProject
                     iHaveAce = true;
                 }
             }
-            return blackJack = iHaveAce && CheckHandValue(h) == 21 ? true : false;
+            return blackJack = iHaveAce && CheckHandValue(h) == 21 && h.Count==2 ? true : false;
         }  
     }
 }

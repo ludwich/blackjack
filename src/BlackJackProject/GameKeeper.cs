@@ -279,7 +279,7 @@ namespace BlackJackProject
                         }
                         else
                         {
-                            Console.WriteLine($"{input} is not a valid option");
+                            Console.WriteLine($"{input} is not a valid option. Max Bet is $999");
                         }
 
 
