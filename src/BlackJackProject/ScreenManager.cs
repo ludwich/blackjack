@@ -11,7 +11,7 @@ namespace BlackJackProject
         private Player[] players;
         private string[][] screen = new string[3][] { new string[25], new string[25], new string[25] };
         private HighScoreManager hs;
-        private string[] hsTable = {new string(' ', 20),new string(' ', 20),new string(' ', 20),new string(' ', 20),new string(' ', 20) };
+        private string[] hsTable = { new string(' ', 20), new string(' ', 20), new string(' ', 20), new string(' ', 20), new string(' ', 20) };
 
         public ScreenManager(TableManager t, Player[] p, HighScoreManager h)
         {
@@ -26,12 +26,12 @@ namespace BlackJackProject
         }
 
         public void RefreshTable()
-        {            
+        {
             Console.Clear();
             SetScreen(players[0], 1, 0);
             SetScreen(players[1], 2, 9);
             SetScreen(players[2], 1, 11);
-            SetScreen(players[3], 0, 9);            
+            SetScreen(players[3], 0, 9);
             PrintScreen();
         }
 
@@ -61,7 +61,7 @@ namespace BlackJackProject
             screen[2][1] = " |" + new string(' ', 7) + "Highscore" + new string(' ', 7) + "|";
             for (int i = 0; i < hsTable.Length; i++)
             {
-                screen[2][i+2] = $" |{i+1} {hsTable[i]}|";
+                screen[2][i + 2] = $" |{i + 1} {hsTable[i]}|";
             }
             screen[2][7] = " |" + new string('_', 23) + "|";
         }
@@ -77,7 +77,7 @@ namespace BlackJackProject
         }
 
         private void SetScreen(Player p, int c, int r)
-        {            
+        {
             if (p == null)
             {
                 SetSpaces(c, r, 14);
@@ -86,7 +86,7 @@ namespace BlackJackProject
             {
                 SetBox(p, c, r, false);
 
-            }            
+            }
         }
 
         private void SetBox(Player p, int c, int r, bool s)
@@ -96,6 +96,7 @@ namespace BlackJackProject
             bool tmpActivePlayer;
             int tmpBettingCash, j;
             string tmpText;
+            bool isDealer = p.isDealer;
 
             if (s) // vid split
             {
@@ -107,23 +108,34 @@ namespace BlackJackProject
             }
             else
             {
-                tmpCards = p.myCards;
                 tmpActivePlayer = p.isActivePlayer;
+
+                if (isDealer && !tmpActivePlayer && p.myCards.Count == 2) // dölja dealerns andra hålkort
+                {
+                    var sTmp = new Stack<Cards>();
+                    sTmp.Push(p.myCards.ElementAt<Cards>(1));
+                    tmpCards = sTmp;
+                }
+                else
+                {
+                    tmpCards = p.myCards;
+                }
+
                 tmpBettingCash = p.BettingCash;
                 tmpText = p.Text;
 
-                j = (p.isDealer) ? j = 1 : j = 0;
-            
+                j = (isDealer) ? j = 1 : j = 0;
+
             }
 
-            tmp = GetCardParts(tmpCards.ToArray());
+            tmp = GetCardParts(tmpCards.ToArray(), isDealer);
             var parts = new string[8 - j];
 
             if (!s)
             {
                 parts[0] = new string(' ', 5) + GetName(p.Name) + new string(' ', 11);
 
-                if (!p.isDealer)
+                if (!isDealer)
                 {
                     parts[1] = new string(' ', 5) + GetBalance(p.Cash) + new string(' ', 9);
                 }
@@ -176,12 +188,21 @@ namespace BlackJackProject
             Console.WriteLine("|" + new string('_', 80) + "|");
         }
 
-        private string[] GetCardParts(Cards[] c) // 5 x 24
+        private string[] GetCardParts(Cards[] c, bool d) // 5 x 24
         {
 
             var parts = new string[5];
 
-            if (c.Length > 0)
+            if (d && c.Length == 1) // bara visa 1 kort på dealern
+            {
+                parts[0] = " " + new string('_', 7) + new string(' ', 16);
+                parts[1] = "|" + GetFace(c[0]) + "|" + new string(' ', 4) + "|" + new string(' ', 15);
+                parts[2] = "|" + GetSuit(c[0]) + " |" + new string(' ', 4) + "|" + new string(' ', 15);
+                parts[3] = "|" + new string(' ', 2) + "|" + new string(' ', 4) + "|" + new string(' ', 15);
+                parts[4] = "|" + new string('_', 2) + "|" + new string('_', 4) + "|" + new string(' ', 15);
+            }
+
+            else if (c.Length > 0)
             {
                 parts[0] = " " + new string('_', 4);
                 parts[1] = "|" + GetFace(c[0]) + new string(' ', 2) + "|";
@@ -284,17 +305,20 @@ namespace BlackJackProject
 
         private string GetArrow(bool a) // 1 x 2
         {
-            return (a)? "->" : new string(' ', 2);
+            return (a) ? "->" : new string(' ', 2);
+
         }
 
         private string GetBet(int b) // 1 x 4
         {
-            return (b==0) ? new string(' ', 4) : "$" + b.ToString() + new string(' ', 3 - b.ToString().Length);
+            return (b == 0) ? new string(' ', 4) : "$" + b.ToString() + new string(' ', 3 - b.ToString().Length);
+
         }
 
         private string GetText(string t) // 1 x 21
         {
-            return (t==null) ? new string(' ', 21) : t + new string(' ', 21 - t.Length);
+            return (t == null) ? new string(' ', 21) : t + new string(' ', 21 - t.Length);
+
         }
     }
 }
