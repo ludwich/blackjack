@@ -57,7 +57,6 @@ namespace BlackJackProject
                 Thread.Sleep(800);
                 tableOfPlayers[0].isActivePlayer = true;
                 scrm.RefreshTable();
-                //Thread.Sleep(1500);
                 //Låt dealern dra sina kort
                 while (tb.CheckHandValue(tableOfPlayers[0].myCards) < 17)
                 {
@@ -179,7 +178,6 @@ namespace BlackJackProject
             Console.SetCursorPosition(0, 30);
             while (true)
             {
-
                 Console.Write($"How many new players (max {RemainingSeats()}): ");
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out nrOfPlayers) && (nrOfPlayers <= RemainingSeats()) && (nrOfPlayers >= 0))
@@ -192,8 +190,6 @@ namespace BlackJackProject
                     }
                     break;
                 }
-
-
             }
         }
 
@@ -328,22 +324,56 @@ namespace BlackJackProject
             bool isRunning = true;
             p1.isActivePlayer = true;
             Stack<Cards> activeDeck;
-
+            
 
             //Välj vilken deck som ska användas
             if (!p1.isActivePlayerSplit)
             {
-                
                 activeDeck = p1.myCards;
             }
             else
             {
                 p1.isActivePlayerSplit = true;
                 p1.isActivePlayer = false;
-                
                 activeDeck = p1.myCardsSplit;
             }
-
+            if (activeDeck.Count ==2 && tb.CheckHandValue(activeDeck) <= 11)
+            {
+                Console.SetCursorPosition(0, 27);
+                bool isDubbling = true;
+                while (isDubbling && p1.Cash >= p1.BettingCash)
+                {
+                    Console.Write($"Do you want to dubbeldown? : ");
+                    string answerDubbel = Console.ReadLine().ToLower();
+                    if (answerDubbel == "y")
+                    {
+                        cd.DrawACard(p1, tableDeck);
+                        isDubbling = false;
+                        isRunning = false;
+                        string textBox = p1.isActivePlayerSplit ? p1.TextSplit = "Dubbeldown" : p1.Text = "Dubbeldown";
+                        if (p1.isActivePlayerSplit)
+                        {
+                            p1.Cash -= p1.BettingCashSplit;
+                            p1.BettingCashSplit += p1.BettingCashSplit; 
+                        }
+                        else
+                        {
+                            p1.Cash -= p1.BettingCash;
+                            p1.BettingCash += p1.BettingCash;
+                        }
+                        scrm.RefreshTable();
+                    }
+                    else if (answerDubbel == "n")
+                    {
+                        
+                        isDubbling = false;
+                    }
+                    else
+                    {
+                        Console.Write($"{answerDubbel} is not a valid option y/n please.");
+                    }
+                }
+            }
             while (isRunning && activeDeck.Count() > 0)
             {
 
@@ -357,7 +387,7 @@ namespace BlackJackProject
                     Thread.Sleep(2000);
                     isRunning = false;
                 }
-                else
+                else 
                 {
                     Console.Write($"{p1.Name} your handvalue is {tb.CheckHandValue(activeDeck)} Do you want to draw a card? (Y/N) : ");
                     playerChoice = Console.ReadLine().ToLower();

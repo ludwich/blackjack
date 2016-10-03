@@ -26,10 +26,6 @@ namespace BlackJackProject
                 int nisseN = rnd.Next(10, 99);
                 Name = $"Nisse{nisseN}";
             }
-            if (Name.Contains("  "))
-            {
-                Cash = 100000;
-            }
         }
 
         public string Name { get; set; }
