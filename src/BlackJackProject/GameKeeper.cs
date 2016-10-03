@@ -54,10 +54,14 @@ namespace BlackJackProject
                     }
 
                 }
+                Thread.Sleep(800);
                 tableOfPlayers[0].isActivePlayer = true;
+                scrm.RefreshTable();
+                //Thread.Sleep(1500);
                 //Låt dealern dra sina kort
                 while (tb.CheckHandValue(tableOfPlayers[0].myCards) < 17)
                 {
+                    Thread.Sleep(1500);
                     cd.DrawACard(tableOfPlayers[0], tableDeck);
                     scrm.RefreshTable();
                 }
