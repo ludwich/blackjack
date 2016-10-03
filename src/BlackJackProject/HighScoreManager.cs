@@ -23,7 +23,6 @@ namespace BlackJackProject
         /// <returns>L</returns>
         public List<HighScore> GetTheScoresFromFile()
         {
-
             List<HighScore> highScores = new List<HighScore>(10);
             try
             {
@@ -34,10 +33,8 @@ namespace BlackJackProject
                 }
                 using (StreamReader r = new StreamReader(new FileStream(filePath, FileMode.Open)))
                 {
-
                     string json = r.ReadToEnd();
                     highScores = JsonConvert.DeserializeObject<List<HighScore>>(json);
-
                 }
             }
             catch (FileNotFoundException)
@@ -82,15 +79,12 @@ namespace BlackJackProject
             {
                 using (StreamWriter r = new StreamWriter(new FileStream(filePath, FileMode.Open)))
                 {
-
                     string output = JsonConvert.SerializeObject(sortedList);
                     r.WriteLine(output);
-
                 }
             }
             catch (Exception e)
             {
-
                 Console.WriteLine($" {e.Message} fucked it up");
             }
         }
@@ -106,13 +100,11 @@ namespace BlackJackProject
             if (Online)
             {
                 TheScores = await GetTheScoresFromMyJson();
-             
             }
             else
             {
                 TheScores = GetTheScoresFromFile();
             }
-
             bool isHigscoreNew = false;
             for (int i = 1; i < players.Length; i++)
             {
@@ -130,6 +122,7 @@ namespace BlackJackProject
             var sortedList = TheScores.OrderByDescending(x => x.Cash)
                             .Take(10)
                             .ToList();
+
             if (Online && isHigscoreNew)
             {
                 SaveHighScoreMyJson(sortedList);
@@ -139,10 +132,7 @@ namespace BlackJackProject
                 SaveTheScoresToFile(sortedList);
             }
         }
-
-
-
-
+        
         /// <summary>
         /// Saves the highsores to MyJson.com. Uses same subsite on all games
         /// </summary>
@@ -168,8 +158,6 @@ namespace BlackJackProject
             Console.Write("Done.");
             System.Threading.Thread.Sleep(100);
             Console.Clear();
-            
-
             httpmessage.Wait();
         }
 
@@ -197,11 +185,8 @@ namespace BlackJackProject
                 Console.Write("Done.");
                 System.Threading.Thread.Sleep(100);
                 Console.Clear();
-                task.Wait();
                 string data = await task;
-
                 highScores = JsonConvert.DeserializeObject<List<HighScore>>(data);
-
             }
             catch (Exception e)
             {
@@ -222,7 +207,6 @@ namespace BlackJackProject
         /// </returns>
         public static bool IsNetworkAvailable()
         {
-
             return IsNetworkAvailable(0);
         }
 

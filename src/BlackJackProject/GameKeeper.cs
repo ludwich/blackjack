@@ -23,20 +23,15 @@ namespace BlackJackProject
             tableDeck = cd.GetAFreshDeck();
             hs = new HighScoreManager();
             hs.Online = HighScoreManager.IsNetworkAvailable();
-            scrm = new ScreenManager(tb, tableOfPlayers,hs);
-           
-            
+            scrm = new ScreenManager(tb, tableOfPlayers, hs);
+
+
 
         }
-
-        
-
-
-
         //Loop för själva spelandet
         public void GameRunning()
         {
-            
+
 
             bool isRunning = true;
 
@@ -134,7 +129,7 @@ namespace BlackJackProject
                     if (input == "n")
                     {
                         isRunning = false;
-                        hs.Online =  HighScoreManager.IsNetworkAvailable();
+                        hs.Online = HighScoreManager.IsNetworkAvailable();
                         hs.HighScoreWorthyCheck(tableOfPlayers);
                         scrm.DrawTheHighScores(hs);
                         break;
@@ -187,7 +182,7 @@ namespace BlackJackProject
             Console.SetCursorPosition(0, 30);
             while (true)
             {
-                
+
                 Console.Write($"How many new players (max {RemainingSeats()}): ");
                 string input = Console.ReadLine();
                 if (int.TryParse(input, out nrOfPlayers) && (nrOfPlayers <= RemainingSeats()) && (nrOfPlayers >= 0))
@@ -210,7 +205,7 @@ namespace BlackJackProject
             Console.SetCursorPosition(0, 30);
 
             Cards[] check = p1.myCards.ToArray();
-            if (check[0].Value == check[1].Value && p1.isActivePlayerSplit == false && p1.Cash >= p1.BettingCash && p1.BettingCash >=2)
+            if (check[0].Value == check[1].Value && p1.isActivePlayerSplit == false && p1.Cash >= p1.BettingCash && p1.BettingCash >= 2)
             {
                 while (true)
                 {
@@ -350,8 +345,9 @@ namespace BlackJackProject
                 Console.SetCursorPosition(0, 30);
                 if (tb.IsBlackJack(activeDeck))
                 {
-                    Console.WriteLine($"Congrats {p1.Name} you have BLACKJACK!");
                     p1.Text = "BLACKJACK!";
+                    scrm.RefreshTable();
+                    Console.WriteLine($"Congrats {p1.Name} you have BLACKJACK!");
                     Thread.Sleep(2000);
                     isRunning = false;
                 }
@@ -366,9 +362,9 @@ namespace BlackJackProject
                         if (tb.IsFat(activeDeck))
 
                         {
+                            p1.Text = "Busted";
                             scrm.RefreshTable();
                             Console.WriteLine("You busted!");
-                            p1.Text = "Busted";
                             Thread.Sleep(2000);
                             isRunning = false;
                             p1.isFat = true;
@@ -394,30 +390,5 @@ namespace BlackJackProject
             }
             p1.isActivePlayer = false;
         }
-
-
-
-
-
-        //
-        //
-        //
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
-
-
 }

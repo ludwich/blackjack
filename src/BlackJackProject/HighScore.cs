@@ -11,11 +11,8 @@ namespace BlackJackProject
         {
             Name = name;
             Cash = cash;
-
-
         }
         public string Name { get; set; }
         public double Cash { get; set; }
-
     }
 }

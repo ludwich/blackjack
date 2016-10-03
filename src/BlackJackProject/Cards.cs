@@ -18,13 +18,11 @@ namespace BlackJackProject
             Suits = (Suits)color;
             Face = (Face)value;
             Value = value;
-
-        }
+         }
 
         public Suits Suits { get; set; }
         public Face Face { get; set; }
         private int _value;
-
         public int Value
         {
             get { return _value; }
@@ -42,6 +40,10 @@ namespace BlackJackProject
         }
         
 
+        /// <summary>
+        /// Will return a Stack<Cards>
+        /// </summary>
+        /// <returns>Stack<Cards></returns>
         public Stack<Cards> GetAFreshDeck()
         {
             List<Cards> AFreshDeck = new List<Cards>(312);
@@ -60,7 +62,7 @@ namespace BlackJackProject
         }
 
         static Random _random = new Random();
-        public Stack<Cards> Shuffle(List<Cards> list)
+        private Stack<Cards> Shuffle(List<Cards> list)
         {
             Stack<Cards> MyCards = new Stack<Cards>(312);
             int n = list.Count;
@@ -90,9 +92,5 @@ namespace BlackJackProject
                 p.myCards.Push(deck.Pop());
             }
         }
-    
-
-
-
     }
 }

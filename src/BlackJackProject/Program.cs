@@ -9,7 +9,6 @@ namespace BlackJackProject
     {
         public static void Main(string[] args)
         {
-            
             GameKeeper gk = new GameKeeper();
             gk.GameRunning();
         }

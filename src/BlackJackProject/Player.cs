@@ -17,20 +17,14 @@ namespace BlackJackProject
         {
             Console.Clear();
             Console.SetCursorPosition(0, 30);
-
             Cash = 100;
-
-
             Console.Write("Your name can't be longer then 10 characters \nEnter your name: ");
             Name = Console.ReadLine();
-
             if (string.IsNullOrEmpty(Name) == true || Name.Length > 10)
             {
                 Random rnd = new Random();
                 int nisseN = rnd.Next(10, 99);
                 Name = $"Nisse{nisseN}";
-
-
             }
             if (Name.Contains("  "))
             {
@@ -58,6 +52,4 @@ namespace BlackJackProject
         public string TextSplit { get; set; }     
 
     }
-
-
 }

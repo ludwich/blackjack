@@ -11,9 +11,7 @@ namespace BlackJackProject
         public TableManager()
         {
         }
-
-
-
+        
         //Metoder
         //Kontrollera värdet på en hand
         public int CheckHandValue(Stack<Cards> hand)
@@ -56,10 +54,8 @@ namespace BlackJackProject
                 foreach (var item in hand)
                 {
                     hValue += item.Value;
-
                 }
             }
-
             return hValue;
         }
 
@@ -78,8 +74,7 @@ namespace BlackJackProject
             {
                 currentHand = p2.myCards;
                 h2 = CheckHandValue(currentHand);
-
-            }
+             }
 
             Console.WriteLine($"{h1}:{h2}");
             if (IsFat(currentHand))
@@ -194,14 +189,8 @@ namespace BlackJackProject
         //Kontrollera om handen är större än 21
         public bool IsFat(Stack<Cards> h)
         {
-            if (CheckHandValue(h) > 21)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            bool fatBool;
+            return fatBool = CheckHandValue(h) > 21 ? true : false;
         }
 
 
@@ -209,6 +198,8 @@ namespace BlackJackProject
         public bool IsBlackJack(Stack<Cards> h)
         {
             bool iHaveAce = false;
+            bool blackJack;
+            
             foreach (var card in h)
             {
                 if (card.Face == Face.Ace)
@@ -216,18 +207,7 @@ namespace BlackJackProject
                     iHaveAce = true;
                 }
             }
-            if (iHaveAce && CheckHandValue(h) == 21)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
-
-
+            return blackJack = iHaveAce && CheckHandValue(h) == 21 ? true : false;
+        }  
     }
 }
