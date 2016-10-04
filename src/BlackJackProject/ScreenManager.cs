@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Text;
 
 namespace BlackJackProject
 {
@@ -58,23 +57,23 @@ namespace BlackJackProject
         private void PrintTheHighScores() //8x26
         {
 
-            screen[2][0] = " \u250C" + new string('\u2500', 23) + "\u2510";
-            screen[2][1] = " \u2502" + new string(' ', 7) + "Highscore" + new string(' ', 7) + "\u2502";
+            screen[2][0] = new string(' ', 2) + new string('_', 23) + " ";
+            screen[2][1] = " |" + new string(' ', 7) + "Highscore" + new string(' ', 7) + "|";
             for (int i = 0; i < hsTable.Length; i++)
             {
-                screen[2][i + 2] = $" \u2502{i + 1} {hsTable[i]}\u2502";
+                screen[2][i + 2] = $" |{i + 1} {hsTable[i]}|";
             }
-            screen[2][7] = " \u2514" + new string('\u2500', 23) + "\u2518";
+            screen[2][7] = " |" + new string('_', 23) + "|";
         }
 
         private void PrintInfoLeft() //8x26
         {
-            screen[0][1] = new string(' ', 4) + "\u250C" + new string('\u2500', 16) + "\u2510" + new string(' ', 4);
-            screen[0][2] = new string(' ', 4) + "\u2502 Jonthieboi's   \u2502" + new string(' ', 4);
-            screen[0][3] = new string(' ', 4) + "\u2502  Blackjack     \u2502" + new string(' ', 4);
-            screen[0][4] = new string(' ', 4) + "\u2502   Min bet $1   \u2502" + new string(' ', 4);
-            screen[0][5] = new string(' ', 4) + "\u2502   Max bet $999 \u2502" + new string(' ', 4);
-            screen[0][6] = new string(' ', 4) + "\u2514" + new string('\u2500', 16) + "\u2518" + new string(' ', 4);
+            screen[0][1] = new string(' ', 5) + new string('_', 16) + new string(' ', 5);
+            screen[0][2] = new string(' ', 4) + "| Jonthieboi's   |" + new string(' ', 4);
+            screen[0][3] = new string(' ', 4) + "|  Blackjack     |" + new string(' ', 4);
+            screen[0][4] = new string(' ', 4) + "|   Min bet $1   |" + new string(' ', 4);
+            screen[0][5] = new string(' ', 4) + "|   Max bet $999 |" + new string(' ', 4);
+            screen[0][6] = new string(' ', 4) + "|" + new string('_', 16) + "|" + new string(' ', 4);
         }
 
         private void SetScreen(Player p, int c, int r)
@@ -182,12 +181,12 @@ namespace BlackJackProject
         private void PrintScreen()
         {
 
-            Console.WriteLine("\u250F" + new string('\u2501', 80) + "\u2513");
+            Console.WriteLine(" " + new string('_', 80));
             for (int i = 0; i < 25; i++)
             {
-                Console.WriteLine("\u2503 " + screen[0][i] + screen[1][i] + screen[2][i] + " \u2503");
+                Console.WriteLine("| " + screen[0][i] + screen[1][i] + screen[2][i] + " |");
             }
-            Console.WriteLine("\u2517" + new string('\u2501', 80) + "\u251B");
+            Console.WriteLine("|" + new string('_', 80) + "|");
         }
 
         private string[] GetCardParts(Cards[] c, bool d) // 5 x 24
@@ -197,49 +196,34 @@ namespace BlackJackProject
 
             if (d) // gömma andra hålkortet
             {
-                parts[0] = "\u250C" + new string('\u2500', 2) + "\u252C" + new string('\u2500', 4) + "\u2510" + new string(' ', 15);
-                parts[1] = "\u2502" + GetFace(c[1]) + "\u2502" + new string(' ', 4) + "\u2502" + new string(' ', 15);
-                parts[2] = "\u2502" + GetSuit(c[1]) + " \u2502" + new string(' ', 4) + "\u2502" + new string(' ', 15);
-                parts[3] = "\u2502" + new string(' ', 2) + "\u2502" + new string(' ', 4) + "\u2502" + new string(' ', 15);
-                parts[4] = "\u2514" + new string('\u2500', 2) + "\u2534" + new string('\u2500', 4) + "\u2518" + new string(' ', 15);
+                parts[0] = " " + new string('_', 7) + new string(' ', 16);
+                parts[1] = "|" + GetFace(c[1]) + "|" + new string(' ', 4) + "|" + new string(' ', 15);
+                parts[2] = "|" + GetSuit(c[1]) + " |" + new string(' ', 4) + "|" + new string(' ', 15);
+                parts[3] = "|" + new string(' ', 2) + "|" + new string(' ', 4) + "|" + new string(' ', 15);
+                parts[4] = "|" + new string('_', 2) + "|" + new string('_', 4) + "|" + new string(' ', 15);
             }
 
             else if (c.Length > 0)
             {
-                parts[0] = "\u250C" + new string('\u2500', 4) + "\u2510";
-                parts[1] = "\u2502" + GetFace(c[0]) + new string(' ', 2) + "\u2502";
-                parts[2] = "\u2502" + GetSuit(c[0]) + new string(' ', 3) + "\u2502";
-                parts[3] = "\u2502" + new string(' ', 4) + "\u2502";
-                parts[4] = "\u2514" + new string('\u2500', 4) + "\u2518";
+                parts[0] = " " + new string('_', 4);
+                parts[1] = "|" + GetFace(c[0]) + new string(' ', 2) + "|";
+                parts[2] = "|" + GetSuit(c[0]) + new string(' ', 3) + "|";
+                parts[3] = "|" + new string(' ', 4) + "|";
+                parts[4] = "|" + new string('_', 4) + "|";
 
                 for (int i = 1; i < c.Length; i++)
                 {
-                    parts[0] = "\u250C" + new string('\u2500', 2) + parts[0];
-                    parts[1] = "\u2502" + GetFace(c[i]) + parts[1];
-                    parts[2] = "\u2502" + GetSuit(c[i]) + " " + parts[2];
-                    parts[3] = "\u2502" + new string(' ', 2) + parts[3];
-                    parts[4] = "\u2514" + new string('\u2500', 2) + parts[4];
-                }
-
-                if (c.Length > 1)
-                {
-                    for (int i = 1; i < c.Length; i++)
-                    {                        
-                        StringBuilder sb = new StringBuilder(parts[0]);
-                        StringBuilder sb2 = new StringBuilder(parts[4]);
-                        sb[i * 3] = '\u252C';
-                        sb2[i * 3] = '\u2534';
-                        parts[0] = sb.ToString();
-                        parts[4] = sb2.ToString();
-                    }                    
+                    parts[0] = parts[0] + new string('_', 3);
+                    parts[1] = "|" + GetFace(c[i]) + parts[1];
+                    parts[2] = "|" + GetSuit(c[i]) + " " + parts[2];
+                    parts[3] = "|" + new string(' ', 2) + parts[3];
+                    parts[4] = "|" + new string('_', 2) + parts[4];
                 }
 
                 for (int i = 0; i < parts.Length; i++)
                 {
                     parts[i] = parts[i] + new string(' ', 24 - parts[i].Length);
                 }
-
-
             }
 
             else
