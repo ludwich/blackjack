@@ -182,12 +182,12 @@ namespace BlackJackProject
         private void PrintScreen()
         {
 
-            Console.WriteLine("\u250F" + new string('\u2501', 80) + "\u2513");
+            Console.WriteLine("\u250C" + new string('\u2500', 80) + "\u2510");
             for (int i = 0; i < 25; i++)
             {
-                Console.WriteLine("\u2503 " + screen[0][i] + screen[1][i] + screen[2][i] + " \u2503");
+                Console.WriteLine("\u2502 " + screen[0][i] + screen[1][i] + screen[2][i] + " \u2502");
             }
-            Console.WriteLine("\u2517" + new string('\u2501', 80) + "\u251B");
+            Console.WriteLine("\u2514" + new string('\u2500', 80) + "\u2518");
         }
 
         private string[] GetCardParts(Cards[] c, bool d) // 5 x 24
